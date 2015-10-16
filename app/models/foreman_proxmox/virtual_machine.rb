@@ -1,4 +1,6 @@
-require 'http-client'
+require 'httpclient'
+require 'json'
+require 'logger'
 module ForemanProxmox
   class VirtualMachine < ActiveRecord::Base
     
