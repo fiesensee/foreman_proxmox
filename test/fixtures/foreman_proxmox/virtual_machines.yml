@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vmid: MyString
+  sockets: MyString
+  cores: MyString
+  memory: MyString
+  size: MyString
+
+two:
+  vmid: MyString
+  sockets: MyString
+  cores: MyString
+  memory: MyString
+  size: MyString
