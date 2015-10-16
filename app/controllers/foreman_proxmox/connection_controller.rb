@@ -21,5 +21,9 @@ module ForemanProxmox
     
     def edit
     end
+    
+    def show
+    end
+    
   end
 end
