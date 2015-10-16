@@ -1,5 +1,3 @@
-require_dependency "foreman_proxmox/application_controller"
-
 module ForemanProxmox
   class ConnectionController < ApplicationController
     
