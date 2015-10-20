@@ -10,6 +10,7 @@ module ForemanProxmox
       else
         flash.now[:alert] = 'Fail'
       end
+      redirect_to '/proxmox'
     end
     
     def new
