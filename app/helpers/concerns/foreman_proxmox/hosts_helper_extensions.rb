@@ -11,11 +11,11 @@ module ForemanProxmox
     def host_title_actions_with_proxmox(*args)
       title_actions(
         button_group(
-          if @host.build
-            display_button_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/vm', :action => 'create_vm', :id => @host}, :class => 'btn')
-          else
+          # if @host.build
+          #   display_button_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/vm', :action => 'create_vm', :id => @host}, :class => 'btn')
+          # else
             display_button_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/vm', :action => 'delete_vm', :id => @host}, :class => 'btn')
-          end
+          # end
         )
       )
       host_title_actions_without_proxmox(*args)
