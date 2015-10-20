@@ -24,8 +24,8 @@ module ForemanProxmox
 
         # Add permissions
         security_block :foreman_proxmox do
-          permission :view_foreman_proxmox, {:'foreman_proxmox/connection' => [:proxmox]}
-          permission :new_connections, {:'foreman_proxmox/connection' => [:new, :create]}
+          permission :view_foreman_proxmox, {:'foreman_proxmox/proxmox_connection' => [:proxmox]}
+          permission :new_connections, {:'foreman_proxmox/proxmox_connection' => [:new, :create]}
           permission :manage_vm, {:'foreman_proxmox/vm' => [:create_vm, :delete_vm]}
         end
 
@@ -34,7 +34,7 @@ module ForemanProxmox
 
         #add menu entry
         menu :top_menu, :template,
-            url_hash: { controller: :'foreman_proxmox/connection', action: :proxmox },
+            url_hash: { controller: :'foreman_proxmox/proxmox_connection', action: :proxmox },
             caption: 'ForemanProxmox',
             parent: :hosts_menu,
             after: :hosts

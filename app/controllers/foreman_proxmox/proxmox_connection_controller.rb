@@ -1,5 +1,5 @@
 module ForemanProxmox
-  class ConnectionController < ApplicationController
+  class ProxmoxConnectionController < ApplicationController
     
     def index
     end
@@ -13,7 +13,7 @@ module ForemanProxmox
     end
     
     def new
-      @connection = Connection.new
+      @connection = ProxmoxConnection.new
     end
     
     def update
