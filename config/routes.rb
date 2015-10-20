@@ -5,7 +5,7 @@ end
 
 ForemanProxmox::Engine.routes.draw do
     
-    resources :proxmoxconnection
+    resources :proxmox_connection
      
     resources :vm, :only => [] do
         constraints(:id => /[^\/]+/) do
