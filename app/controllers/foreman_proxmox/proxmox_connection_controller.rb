@@ -1,7 +1,7 @@
 module ForemanProxmox
   class ProxmoxConnectionController < ApplicationController
     
-    def index
+    def proxmox
     end
     
     def create 
