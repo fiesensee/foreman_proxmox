@@ -4,7 +4,7 @@ module ForemanProxmox
     def create_vm
       host_id = params[:id]
       host = Host.find(host_id)
-      connection = (ProxConnection.last)
+      connection = (ProxmoxConnection.last)
       vm = VirtualMachine.new(host, connection)
       vm.create
       redirect_to :back
