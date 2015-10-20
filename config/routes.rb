@@ -10,6 +10,7 @@ ForemanProxmox::Engine.routes.draw do
     resources :vm, :only => [] do
         constraints(:id => /[^\/]+/) do
             get 'hosts/:id', :on => :collection, :to => 'vm#create_vm'
+            get 'hosts/:id', :on => :collection, :to => 'vm#delete_vm'
         end
     end
 end
