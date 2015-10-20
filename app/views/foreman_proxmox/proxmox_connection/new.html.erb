@@ -1,4 +1,4 @@
-<%= form_for @connection do |f| %>
+<%= form_for @connection, url: new_proxmox_connection_path do |f| %>
     <%= f.label :ip %>
     <%= f.text_field :ip %>
     <br>
