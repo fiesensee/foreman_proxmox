@@ -5,14 +5,14 @@ module ForemanProxmox
   class VirtualMachine < ActiveRecord::Base
     
     
-    def initialize(host, connection)
+    def initialize(host, proxmox_connection)
       self.vmid = host.params["vmid"]
       self.sockets = host.params["sockets"]
       self.cores = host.params["cores"]
       self.memory = host.params["memory"]
       self.size = host.params["size"]
       self.mac = host.mac
-      self.connection = connection
+      self.proxmox_connection = proxmox_connection
       @httpclient = setup_httpclient
     end
     
@@ -23,8 +23,8 @@ module ForemanProxmox
     end
     
     def authenticate_and_get_token
-      credentials = {:username => "#{self.connection.username}@pam", :password => self.connection.password}
-      auth_response = @httpclient.post("https://#{self.connection.ip}:8006/api2/json/access/ticket", credentials)
+      credentials = {:username => "#{self.proxmox_connection.username}@pam", :password => self.proxmox_connection.password}
+      auth_response = @httpclient.post("https://#{self.proxmox_connection.ip}:8006/api2/json/access/ticket", credentials)
 
       $LOG.error(auth_response.body)
       
@@ -34,7 +34,7 @@ module ForemanProxmox
       
       $LOG.error("#{ticket} #{token}")
       
-      domain = "https://#{self.connection.ip}:8006/"
+      domain = "https://#{self.proxmox_connection.ip}:8006/"
       url = URI.parse(domain)
       
       $LOG.error(url)      
@@ -57,14 +57,14 @@ module ForemanProxmox
       #allocate disk for vm 
       header= {:CSRFPreventionToken => token}
       body= { :filename => "vm-#{self.vmid}-disk-0.qcow2", :format => "qcow2", :size => self.size, :vmid => self.vmid}
-      testres= @httpclient.post("https://#{self.connection.ip}:8006/api2/json/nodes/proxmox/storage/local/content",body,header)
+      testres= @httpclient.post("https://#{self.proxmox_connection.ip}:8006/api2/json/nodes/proxmox/storage/local/content",body,header)
       
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
       
       #create vm
       body= { :vmid => self.vmid, :sockets => self.sockets, :cores => self.cores, :memory => self.memory, :net0 => "e1000=#{self.mac},bridge=vmbr1", :ide0 => "volume=local:#{self.vmid}/vm-#{self.vmid}-disk-0.qcow2,media=disk"}
-      testres= @httpclient.post("https://#{self.connection.ip}:8006/api2/json/nodes/proxmox/qemu",body,header)
+      testres= @httpclient.post("https://#{self.proxmoxconnection.ip}:8006/api2/json/nodes/proxmox/qemu",body,header)
       
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
