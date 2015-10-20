@@ -24,6 +24,7 @@ module ForemanProxmox
     end
     
     def show
+      redirect_to '/proxmox'
     end
     
   end
