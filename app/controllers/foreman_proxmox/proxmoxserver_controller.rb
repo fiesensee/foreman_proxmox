@@ -1,5 +1,5 @@
 module ForemanProxmox
-  class ProxmoxserversController < ApplicationController
+  class ProxmoxserverController < ApplicationController
       
     def new
     end
