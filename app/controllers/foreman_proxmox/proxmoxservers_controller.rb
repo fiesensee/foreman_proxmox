@@ -13,7 +13,7 @@ module ForemanProxmox
     def update
     end
     
-    def index
+    def show
       @proxmox = Proxmoxserver.last
     end
     
