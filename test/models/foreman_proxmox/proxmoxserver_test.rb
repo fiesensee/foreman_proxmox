@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module ForemanProxmox
-  class VirtualMachineTest < ActiveSupport::TestCase
+  class ProxmoxserverTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

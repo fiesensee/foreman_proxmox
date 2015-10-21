@@ -1,11 +1,7 @@
 require 'test_helper'
 
 module ForemanProxmox
-  class VmControllerTest < ActionController::TestCase
-    setup do
-      @routes = Engine.routes
-    end
-
+  class VirtualmachineTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

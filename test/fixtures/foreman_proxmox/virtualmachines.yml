@@ -4,12 +4,14 @@ one:
   vmid: MyString
   sockets: MyString
   cores: MyString
-  memory: MyString
   size: MyString
+  memory: MyString
+  proxmoxserver_id: 1
 
 two:
   vmid: MyString
   sockets: MyString
   cores: MyString
-  memory: MyString
   size: MyString
+  memory: MyString
+  proxmoxserver_id: 1

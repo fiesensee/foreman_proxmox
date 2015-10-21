@@ -12,16 +12,16 @@ module ForemanProxmox
       title_actions(
         button_group(
           if @host.build
-            display_button_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/vm', :action => 'create_vm', :id => @host}, :class => 'btn')
+            display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host}, :class => 'btn')
           else
-            display_button_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/vm', :action => 'delete_vm', :id => @host}, :class => 'btn')
+            display_proxmox_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host}, :class => 'btn')
           end
         )
       )
       host_title_actions_without_proxmox(*args)
     end
     
-    def display_button_if_authorized(name, options = {}, html_options = {})
+    def display_proxmox_if_authorized(name, options = {}, html_options = {})
       if is_authorized(options)
         link_to(name, proxmox_url(options), html_options)
       else

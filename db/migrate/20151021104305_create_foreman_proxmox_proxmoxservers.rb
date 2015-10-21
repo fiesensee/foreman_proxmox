@@ -1,6 +1,6 @@
-class CreateForemanProxmoxProxmoxConnections < ActiveRecord::Migration
+class CreateForemanProxmoxProxmoxservers < ActiveRecord::Migration
   def change
-    create_table :foreman_proxmox_proxmox_connections do |t|
+    create_table :foreman_proxmox_proxmoxservers do |t|
       t.string :ip
       t.string :username
       t.string :password
