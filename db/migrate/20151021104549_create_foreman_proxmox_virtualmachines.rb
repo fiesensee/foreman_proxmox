@@ -1,4 +1,4 @@
-class CreateForemanProxmoxVirtualMachines < ActiveRecord::Migration
+class CreateForemanProxmoxVirtualmachines < ActiveRecord::Migration
   def change
     create_table :foreman_proxmox_virtualmachines do |t|
       t.string :vmid
