@@ -1,5 +1,5 @@
 module ForemanProxmox
-  module ProxmoxserversHelper
+  module ProxmoxserverHelper
     
     def show_appropriate_connection_button(proxmox)
       if proxmox.ip = nil then
