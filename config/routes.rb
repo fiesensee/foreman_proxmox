@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  match 'proxmox', to: 'foreman_proxmox/proxmoxservers#index'
+  match 'proxmox', to: 'foreman_proxmox/proxmoxserver#show'
 
 end
 
 ForemanProxmox::Engine.routes.draw do
     
     
-    resources :proxmoxserver
+    resources :proxmoxserver, :only => [] do
+        get '/start_all_vms', :to => 'proxmoxservers#start_all_vms'
+    end
          
     resources :virtualmachines, :only => [] do
         constraints(:id => /[^\/]+/) do
