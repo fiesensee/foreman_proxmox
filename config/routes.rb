@@ -7,7 +7,7 @@ ForemanProxmox::Engine.routes.draw do
     
     
     resources :proxmoxserver, :only => [] do
-        get '/start_all_vms', :to => 'proxmoxservers#start_all_vms'
+        get '/start_all_vms', :to => 'proxmoxserver#start_all_vms'
     end
          
     resources :virtualmachines, :only => [] do
