@@ -23,12 +23,15 @@ module ForemanProxmox
     end
     
     def stop_all_vms
+      redirect_to :back
     end
     
     def reboot_node
+      redirect_to :back
     end
     
     def shutdown_node
+      redirect_to :back
     end
     
   end
