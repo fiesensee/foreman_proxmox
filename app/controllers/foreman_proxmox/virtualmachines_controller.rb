@@ -11,7 +11,6 @@ module ForemanProxmox
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
       new_vm.proxmoxserver_id = proxmoxserver.id
-      new_vm.safe
       new_vm.create
       new_vm.start
     end
