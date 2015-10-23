@@ -20,7 +20,7 @@ module ForemanProxmox
     end
     
     def set_options(options={})
-      ForemanProxmox::Engine.routes.url_for(options.merge(:only_path => true, :controller => 'foreman_proxmox/proxmoxserver'))
+      ForemanProxmox::Engine.routes.url_for(options.merge(:only_path => true, :controller => 'proxmoxserver'))
     end
   end
 end
