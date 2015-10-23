@@ -33,11 +33,11 @@ module ForemanProxmox
     end
     
     #manage kvms
-    def create_ide
+    def create_ide(vmid, size)
       authenticate_client
     end
     
-    def create_kvm
+    def create_kvm(vmid, sockets, cores ,memory)
     end
     
     def edit_kvm
