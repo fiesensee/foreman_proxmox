@@ -8,6 +8,7 @@ module ForemanProxmox
     
     #manage kvms
     def create_ide
+      redirect_to :back
     end
     
     def create_kvm
@@ -31,15 +32,19 @@ module ForemanProxmox
     
     #manage node
     def reboot
+      redirect_to :back
     end
     
     def shutdown
+      redirect_to :back
     end
     
     def start_all_vms
+      redirect_to :back
     end
     
     def stop_all_vms
+      redirect_to :back
     end
     
   end
