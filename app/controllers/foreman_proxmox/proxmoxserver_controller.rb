@@ -18,6 +18,7 @@ module ForemanProxmox
     end
     
     def start_all_vms
+      redirect_to :back
     end
     
     def stop_all_vms
