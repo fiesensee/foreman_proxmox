@@ -31,15 +31,15 @@
             </tr>
             <% if @proxmox == nil then %>
             <tr>
-                <td><%= @proxmox.ip %></td>
-                <td><%= @proxmox.username %></td>
-                <td><%= @proxmox.password %></td>
+                <td><%= 'nil' %></td>
+                <td><%= 'nil' %></td>
+                <td><%= 'nil' %></td>
             </tr>
             <% else %>
             <tr>
-                <td><%= 'nil' %></td>
-                <td><%= 'nil' %></td>
-                <td><%= 'nil' %></td>
+                <td><%= @proxmox.ip %></td>
+                <td><%= @proxmox.username %></td>
+                <td><%= @proxmox.password %></td>
             </tr>
             <% end %>
             <tr>
