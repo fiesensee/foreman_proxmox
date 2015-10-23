@@ -26,6 +26,7 @@ module ForemanProxmox
     
     def delete
       proxmoxserver = Proxmoxserver.find(self.proxmoxserver_id)
+      self.stop
       proxmoxserver.delete_kvm(self.vmid)
     end
   end

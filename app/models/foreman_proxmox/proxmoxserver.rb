@@ -58,6 +58,10 @@ module ForemanProxmox
     end
     
     def delete_kvm(vmid)
+      authenticate_client
+      testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}",{},@header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
     
     def start_kvm(vmid)
@@ -68,9 +72,17 @@ module ForemanProxmox
     end
     
     def stop_kvm(vmid)
+      authenticate_client
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/stop",{},@header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
     
     def reboot_kvm(vmid)
+      authenticate_client
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/reset",{},@header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
 
     

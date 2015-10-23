@@ -13,10 +13,12 @@ module ForemanProxmox
       new_vm.mac = host.mac
       new_vm.proxmoxserver_id = proxmoxserver.id
       new_vm.create
-      new_vm.start
+      new_vm.start_vm
+      redirect_to :back
     end
     
     def start_vm
+      new_vm.start
     end
     
     def stop_vm
@@ -26,6 +28,10 @@ module ForemanProxmox
     end
     
     def delete_vm
+      host = Host.find(params[:id])
+      vm = Virtualmachine.find(host.params["vmid"])
+      vm.delete
+      redirect_to :back
     end
     
   end
