@@ -1,4 +1,6 @@
 require 'httpclient'
+require 'json'
+require 'logger'
 module ForemanProxmox
   class Proxmoxserver < ActiveRecord::Base
     has_many :virtualmachines
