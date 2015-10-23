@@ -15,7 +15,7 @@ module ForemanProxmox
     end
     
     def authenticate_client
-      if @client == nil then setup_httpclient
+      if @client == nil then setup_httpclient end
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
       credentials= {:username => "#{self.username}@pam", :password => self.password}
