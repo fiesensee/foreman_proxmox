@@ -61,6 +61,7 @@ module ForemanProxmox
     end
     
     def start_kvm(vmid)
+      authenticate_client
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/start",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
