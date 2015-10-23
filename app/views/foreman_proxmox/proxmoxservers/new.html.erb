@@ -1,1 +1,12 @@
-<%= render 'form' %>
+<%= form_for @proxmox, url: proxmoxserver_path do |f| %>
+    <%= f.label :ip %>
+    <%= f.text_field :ip %>
+    <br>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+    <br>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+    <br>
+    <%= f.submit 'Create' %>
+<% end %>
