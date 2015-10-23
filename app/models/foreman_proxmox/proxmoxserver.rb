@@ -15,7 +15,7 @@ module ForemanProxmox
       @client= HTTPClient.new
       @client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
       $LOG= Logger.new("/tmp/proxmox_debug.log")
-      $Log.error("Created HttpClient")
+      $LOG.error("Created HttpClient")
     end
     
     def authenticate_client
