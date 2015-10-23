@@ -8,7 +8,9 @@
         <tbody>
             <tr>
                 <td>
-                    <%= link_to(_("Start all VMs"), startall_path, :class => 'btn') %>
+                    <% show_node_controlls(@proxmox).each do |btn| %>
+                        <%= btn %>
+                    <% end %>
                 </td>
             </tr>
         </tbody>
@@ -41,7 +43,7 @@
             </tr>
             <% end %>
             <tr>
-                <td><% show_appropriate_connection_button(@proxmox) %></td>
+                <td><%= show_appropriate_connection_button(@proxmox) %></td>
             </tr>
         </tbody>
     </table>
