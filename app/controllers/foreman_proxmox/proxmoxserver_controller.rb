@@ -5,6 +5,7 @@ module ForemanProxmox
     end
     
     def create
+      @proxmox = Proxmoxserver.create(params)
     end
     
     def edit
