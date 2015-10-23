@@ -2,7 +2,7 @@ module ForemanProxmox
   module ProxmoxserverHelper
     
     def show_appropriate_connection_button(proxmox)
-      if proxmox.ip = nil then
+      if proxmox == nil then
         link_to(_("New"), new_proxmoxserver_path, :class => 'btn')
       else
         link_to(_("Edit"), edit_proxmoxserver_path, :class => 'btn')
