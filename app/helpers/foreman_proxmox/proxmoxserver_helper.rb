@@ -12,7 +12,7 @@ module ForemanProxmox
 
     
     def show_node_controlls(proxmox)
-      [ link_to(_("Start all VMs"), set_options({:action => 'start_all_vms'}), :class => 'btn'),
+      [ link_to(_("Start all VMs"), startall_path, :class => 'btn'),
         link_to(_("Stop all VMs"), set_options({:action => 'stop_all_vms'}), :class => 'btn'),
         link_to(_("Reboot"), set_options({:action => 'reboot'}), :class => 'btn'),
         link_to(_("Shutdown"), set_options({:action => 'shutdown'}), :class => 'btn')
