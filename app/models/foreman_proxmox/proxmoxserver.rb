@@ -49,7 +49,7 @@ module ForemanProxmox
     def create_kvm(vmid, sockets, cores ,memory,mac)
       authenticate_client
       body= { :vmid => vmid, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=vmbr1", :ide0 => "volume=local:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu",body,header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu",body,@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -61,7 +61,7 @@ module ForemanProxmox
     end
     
     def start_kvm(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/start",{},header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/start",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
