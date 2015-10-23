@@ -29,7 +29,7 @@
                 <td>Username</td>
                 <td>Password</td>
             </tr>
-            <% if @proxmox == nil %>
+            <% if @proxmox == nil then %>
             <tr>
                 <td><%= @proxmox.ip %></td>
                 <td><%= @proxmox.username %></td>
