@@ -6,6 +6,12 @@ end
 ForemanProxmox::Engine.routes.draw do
     
     get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
+    get 'proxmoxserver/stop_all_vms' => 'proxmoxserver#stop_all_vms', as: 'stopall'
+    get 'proxmoxserver/reboot' => 'proxmoxserver#reboot', as: 'reboot'
+    get 'proxmoxserver/shutdown' => 'proxmoxserver#shutdown', as: 'shutdown'
+    
+    get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
+    get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
     
     resource :proxmoxserver
          
