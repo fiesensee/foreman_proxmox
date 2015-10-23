@@ -29,11 +29,19 @@
                 <td>Username</td>
                 <td>Password</td>
             </tr>
+            <% if @proxmox == nil do %>
             <tr>
                 <td><%= @proxmox.ip %></td>
                 <td><%= @proxmox.username %></td>
                 <td><%= @proxmox.password %></td>
             </tr>
+            <% else %>
+            <tr>
+                <td><%= 'nil' %></td>
+                <td><%= 'nil' %></td>
+                <td><%= 'nil' %></td>
+            </tr>
+            <% end %>
             <tr>
                 <td><% show_appropriate_connection_button(@proxmox)</td>
             </tr>
