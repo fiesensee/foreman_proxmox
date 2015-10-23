@@ -10,6 +10,7 @@ module ForemanProxmox
       new_vm.cores = host.params['cores']
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
+      new_vm.mac = host.mac
       new_vm.proxmoxserver_id = proxmoxserver.id
       new_vm.create
       new_vm.start

@@ -6,7 +6,7 @@ module ForemanProxmox
     def create
       proxmoxserver = Proxmoxserver.find(self.proxmoxserver_id)
       proxmoxserver.create_ide(self.vmid,self.size)
-      proxmoxserver.create_kvm(self.vmid,self.sockets,self.cores,self.memory)
+      proxmoxserver.create_kvm(self.vmid,self.sockets,self.cores,self.memory,self.mac)
     end
     
     def start

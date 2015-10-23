@@ -28,7 +28,7 @@ module ForemanProxmox
       auth= JSON.parse(auth_response.body)
       ticket= auth["data"]["ticket"]
       token= auth["data"]["CSRFPreventionToken"]
-      flash[:notice] = auth_response.status
+      @header= {:CSRFPreventionToken => token}
       $LOG.error("#{ticket} #{token}")
       cookie_ticket= WebAgent::Cookie.new
       cookie_ticket.name= 'PVEAuthCookie'
@@ -40,24 +40,36 @@ module ForemanProxmox
     #manage kvms
     def create_ide(vmid, size)
       authenticate_client
+      body= { :filename => "vm-#{vmid}-disk-0.qcow2", :format => "qcow2", :size => size, :vmid => vmid}
+      testres= client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/storage/local/content",body,@header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
     
-    def create_kvm(vmid, sockets, cores ,memory)
+    def create_kvm(vmid, sockets, cores ,memory,mac)
+      authenticate_client
+      body= { :vmid => vmid, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=vmbr1", :ide0 => "volume=local:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
+      testres= client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu",body,header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
     
-    def edit_kvm
+    def edit_kvm(vmid)
     end
     
-    def delete_kvm
+    def delete_kvm(vmid)
     end
     
-    def start_kvm
+    def start_kvm(vmid)
+      testres= client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/start",{},header)
+      $LOG.error("Body: #{testres.body}")
+      $LOG.error("Header: #{testres.header}")
     end
     
-    def stop_kvm
+    def stop_kvm(vmid)
     end
     
-    def reboot_kvm
+    def reboot_kvm(vmid)
     end
 
     
