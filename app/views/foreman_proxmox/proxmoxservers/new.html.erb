@@ -1,4 +1,4 @@
-<%= form_for (@proxmox = Proxmoxserver.new), url: proxmoxserver_path do |f| %>
+<%= form_for (Proxmoxserver.new), url: proxmoxserver_path do |f| %>
     <%= f.label :ip %>
     <%= f.text_field :ip %>
     <br>
