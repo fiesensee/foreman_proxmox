@@ -13,6 +13,11 @@ module ForemanProxmox
         button_group(
           if @host.build
             display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host}, :class => 'btn')
+            select_action_button(_('Power Control'),{},
+              display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start', :id => @host}, :class => 'btn'),
+              display_proxmox_if_authorized(_('Stop VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'stop', :id => @host}, :class => 'btn')
+              display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot', :id => @host}, :class => 'btn')
+              )
           else
             display_proxmox_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host}, :class => 'btn')
           end
