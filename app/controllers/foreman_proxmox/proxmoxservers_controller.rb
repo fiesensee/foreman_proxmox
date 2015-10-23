@@ -2,10 +2,11 @@ module ForemanProxmox
   class ProxmoxserversController < ApplicationController
       
     def new
+      @proxmox = Proxmoxserver.new
     end
     
     def create
-      @proxmox = Proxmoxserver.create(params)
+      @proxmox = Proxmoxserver.create(params[:proxmoxserver])
     end
     
     def edit
