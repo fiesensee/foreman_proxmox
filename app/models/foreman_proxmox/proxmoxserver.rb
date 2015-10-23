@@ -6,15 +6,16 @@ module ForemanProxmox
     def initialize
       @client = setup_httpclient
       $LOG= Logger.new("/tmp/proxmox_debug.log")
+      $Log.error("Start Here")
     end
     
     def setup_httpclient
-      client= HTTPClient.new
-      client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
-      return client
+      @client= HTTPClient.new
+      @client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
     end
     
     def authenticate_client
+      if @client == nil then setup_httpclient
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
       credentials= {:username => "#{self.username}@pam", :password => self.password}
