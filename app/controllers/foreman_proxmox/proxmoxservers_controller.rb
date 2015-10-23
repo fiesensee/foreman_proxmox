@@ -7,6 +7,7 @@ module ForemanProxmox
     
     def create
       @proxmox = Proxmoxserver.create(params[:proxmoxserver])
+      redirect_to '/proxmox'
     end
     
     def edit
