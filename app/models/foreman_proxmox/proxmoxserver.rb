@@ -7,7 +7,7 @@ module ForemanProxmox
     end
     
     #manage kvms
-  def create_ide
+    def create_ide
     end
     
     def create_kvm
