@@ -5,10 +5,9 @@ end
 
 ForemanProxmox::Engine.routes.draw do
     
+    get 'start_all_vms' => 'proxmoxserver#start_all_vms'
     
-    resource :proxmoxserver do
-        get 'start_all_vms', :on => :collection, :to => 'proxmoxserver#start_all_vms'
-    end
+    resource :proxmoxserver
          
     resources :virtualmachines, :only => [] do
         constraints(:id => /[^\/]+/) do
