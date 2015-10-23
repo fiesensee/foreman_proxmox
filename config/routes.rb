@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
-  match 'proxmox', to: 'foreman_proxmox/proxmoxserver#show'
+  match 'proxmox', to: 'foreman_proxmox/proxmoxservers#show'
 
 end
 
 ForemanProxmox::Engine.routes.draw do
     
-    get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
-    get 'proxmoxserver/stop_all_vms' => 'proxmoxserver#stop_all_vms', as: 'stopall'
-    get 'proxmoxserver/reboot' => 'proxmoxserver#reboot', as: 'reboot'
-    get 'proxmoxserver/shutdown' => 'proxmoxserver#shutdown', as: 'shutdown'
+    get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
+    get 'proxmoxserver/stop_all_vms' => 'proxmoxservers#stop_all_vms', as: 'stopall'
+    get 'proxmoxserver/reboot' => 'proxmoxservers#reboot', as: 'reboot'
+    get 'proxmoxserver/shutdown' => 'proxmoxservers#shutdown', as: 'shutdown'
     
-    get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
-    get 'proxmoxserver/start_all_vms' => 'proxmoxserver#start_all_vms', as: 'startall'
+    get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
+    get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     
     resource :proxmoxserver
          
