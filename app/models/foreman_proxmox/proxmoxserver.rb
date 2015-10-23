@@ -3,9 +3,6 @@ module ForemanProxmox
   class Proxmoxserver < ActiveRecord::Base
     has_many :virtualmachines
     
-    def initialize
-    end
-    
     #manage kvms
     def create_ide
     end
