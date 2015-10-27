@@ -25,6 +25,9 @@ module ForemanProxmox
     def update
     end
     
+    def setactive
+    end
+    
     def start_all_vms
       redirect_to :back
     end
