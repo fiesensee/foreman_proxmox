@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  match 'proxmox', to: 'foreman_proxmox/proxmoxservers#show'
+  match 'proxmox', to: 'foreman_proxmox/proxmoxservers#index'
 
 end
 
