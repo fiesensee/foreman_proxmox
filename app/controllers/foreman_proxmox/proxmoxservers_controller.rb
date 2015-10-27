@@ -12,6 +12,7 @@ module ForemanProxmox
     
       
     def new
+      @proxmox = Proxmoxserver.new
     end
     
     def create
