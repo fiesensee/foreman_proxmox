@@ -1,6 +1,6 @@
 class CreateForemanProxmoxVirtualmachines < ActiveRecord::Migration
   def change
-    create_table :foreman_proxmox_virtualmachines do |t|
+    create_table :foreman_proxmox_virtualmachines, id: false do |t|
       t.primary_key :vmid
       t.string :sockets
       t.string :cores
