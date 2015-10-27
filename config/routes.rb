@@ -13,7 +13,7 @@ ForemanProxmox::Engine.routes.draw do
     get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     
-    resource :proxmoxserver
+    resources :proxmoxservers
          
     resources :virtualmachines, :only => [] do
         constraints(:id => /[^\/]+/) do

@@ -1,5 +1,14 @@
 module ForemanProxmox
   class ProxmoxserversController < ApplicationController
+    
+    def index
+      @proxmoxservers = Proxmoxserver.all
+    end
+    
+    def show
+      @proxmox = Proxmoxserver.last
+    end
+    
       
     def new
       @proxmox = Proxmoxserver.new
@@ -14,10 +23,6 @@ module ForemanProxmox
     end
     
     def update
-    end
-    
-    def show
-      @proxmox = Proxmoxserver.last
     end
     
     def start_all_vms
