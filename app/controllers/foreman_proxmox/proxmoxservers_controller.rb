@@ -20,6 +20,7 @@ module ForemanProxmox
     end
     
     def edit
+      @proxmox = Proxmoxserver.find(params[:id])
     end
     
     def update
