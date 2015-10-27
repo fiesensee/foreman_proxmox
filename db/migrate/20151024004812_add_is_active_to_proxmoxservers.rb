@@ -1,5 +1,5 @@
-class AddIsActiveToProxmoxservers < ActiveRecord::Migration
+class AddIsActiveToForemanProxmoxProxmoxservers < ActiveRecord::Migration
   def change
-    add_column :proxmoxservers, :IsActive, :boolean
+    add_column :foreman_proxmox_proxmoxservers, :IsActive, :boolean
   end
 end

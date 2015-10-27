@@ -1,1 +1,22 @@
-<%= Test %
+<table id="proxmoxservers_overview" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Proxmox Servers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Server ID</td>
+            <td>Server IP</td>
+            <td>Username</td>
+            <td>Is Active?</td>
+        </tr>
+        <% @proxmoxservers.each do |server| %>
+            <tr>
+                <td><%= server.id%></td>
+                <td><%= server.ip%></td>
+                <td><%= server.username%></td>
+                <td><%= server.IsActive%</td>
+            </tr>
+    </tbody>
+</table>
