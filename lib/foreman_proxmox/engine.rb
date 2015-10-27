@@ -24,17 +24,18 @@ module ForemanProxmox
 
         # Add permissions
         security_block :foreman_proxmox do
-          permission :view_foreman_proxmox, {:'foreman_proxmox/proxmoxservers' => [:show]}
-          permission :manage_proxmoxserver, {:'foreman_proxmox/proxmoxservers' => [:new, :create, :edit, :update, :stop_all_vms, :start_all_vms, :reboot_node, :shutdown_node]}
+          permission :view_foreman_proxmox, {:'foreman_proxmox/proxmoxservers' => [:index]}
+          permission :manage_proxmoxserver, {:'foreman_proxmox/proxmoxservers' => [:new, :create, :stop_all_vms, :start_all_vms, :reboot_node, :shutdown_node]}
+          permission :proxmoxservers_crud, {:'foreman_proxmox/proxmoxservers' => [:edit, :update, :show, :delete]}
           permission :manage_vm, {:'foreman_proxmox/virtualmachines' => [:create_vm, :start_vm, :stop_vm, :reboot_vm, :delete_vm]}
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
-        role 'ForemanProxmox', [:view_foreman_proxmox, :manage_proxmoxserver, :manage_vm]
+        role 'ForemanProxmox', [:view_foreman_proxmox, :manage_proxmoxserver, :proxmoxservers_crudm, :manage_vm]
 
         #add menu entry
         menu :top_menu, :template,
-            url_hash: { controller: :'foreman_proxmox/proxmoxservers', action: :show },
+            url_hash: { controller: :'foreman_proxmox/proxmoxservers', action: :index },
             caption: 'ForemanProxmox',
             parent: :hosts_menu,
             after: :hosts
