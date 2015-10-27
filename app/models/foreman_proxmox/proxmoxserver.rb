@@ -5,9 +5,6 @@ module ForemanProxmox
   class Proxmoxserver < ActiveRecord::Base
     has_many :virtualmachines
     
-    def initialize
-    end
-    
     def setup_httpclient
       @client= HTTPClient.new
       @client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
