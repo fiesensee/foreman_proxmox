@@ -8,7 +8,7 @@ module ForemanProxmox
     def initialize
       @client = setup_httpclient
       $LOG= Logger.new("/tmp/proxmox_debug.log")
-      $Log.error("Start Here")
+      $LOG.error("Start Here")
     end
     
     def setup_httpclient

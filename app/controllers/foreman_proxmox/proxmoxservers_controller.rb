@@ -6,7 +6,7 @@ module ForemanProxmox
     end
     
     def show
-      @proxmox = Proxmoxserver.last
+      @proxmox = Proxmoxserver.find(params[:id])
     end
     
       
@@ -26,7 +26,7 @@ module ForemanProxmox
     def update
     end
     
-    def setactive
+    def setcurrent
     end
     
     def start_all_vms
