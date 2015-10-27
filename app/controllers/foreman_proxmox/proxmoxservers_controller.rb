@@ -2,6 +2,7 @@ module ForemanProxmox
   class ProxmoxserversController < ApplicationController
     
     def index
+      @proxmox = Proxmoxserver.new
       @proxmoxservers = Proxmoxserver.all
     end
     
@@ -11,7 +12,6 @@ module ForemanProxmox
     
       
     def new
-      @proxmox = Proxmoxserver.new
     end
     
     def create
