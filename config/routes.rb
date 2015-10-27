@@ -13,9 +13,9 @@ ForemanProxmox::Engine.routes.draw do
     get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     
-    get 'proxmoxserver/setactive/id' => 'proxmoxservers#setactive', as: 'setactive_path'
-    
-    resources :proxmoxservers
+    resources :proxmoxservers do
+        get 'proxmoxserver/setactive/id' => 'proxmoxservers#setactive', as: 'setactive_path'
+    end
          
     resources :virtualmachines, :only => [] do
         constraints(:id => /[^\/]+/) do
