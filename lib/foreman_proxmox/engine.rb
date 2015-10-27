@@ -31,7 +31,7 @@ module ForemanProxmox
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
-        role 'ForemanProxmox', [:view_foreman_proxmox, :manage_proxmoxserver, :proxmoxservers_crudm, :manage_vm]
+        role 'ForemanProxmox', [:view_foreman_proxmox, :manage_proxmoxserver, :proxmoxservers_crud, :manage_vm]
 
         #add menu entry
         menu :top_menu, :template,
