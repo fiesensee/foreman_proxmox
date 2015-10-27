@@ -19,28 +19,28 @@ module ForemanProxmox
     
     def start_vm
       host = Host.find(params[:id])
-      vm = Virtualmachine.where("vmid = #{host.params['vmid']}").first
+      vm = Virtualmachine.where("vmid = '#{host.params['vmid']}'").first
       vm.start
       redirect_to :back
     end
     
     def stop_vm
       host = Host.find(params[:id])
-      vm = Virtualmachine.where("vmid = #{host.params['vmid']}").first
+      vm = Virtualmachine.where("vmid = '#{host.params['vmid']}'").first
       vm.stop
       redirect_to :back
     end
     
     def reboot_vm
       host = Host.find(params[:id])
-      vm = Virtualmachine.where("vmid = #{host.params['vmid']}").first
+      vm = Virtualmachine.where("vmid = '#{host.params['vmid']}'").first
       vm.reboot
       redirect_to :back
     end
     
     def delete_vm
       host = Host.find(params[:id])
-      vm = Virtualmachine.where("vmid = #{host.params['vmid']}").first
+      vm = Virtualmachine.where("vmid = '#{host.params['vmid']}'").first
       vm.delete
       redirect_to :back
     end
