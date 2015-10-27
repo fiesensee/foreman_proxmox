@@ -11,11 +11,10 @@ module ForemanProxmox
     
       
     def new
-      @proxmox = Proxmoxserver.new
     end
     
     def create
-      @proxmox = Proxmoxserver.create(params[:proxmoxserver])
+      Proxmoxserver.create(params[:proxmoxserver])
       redirect_to '/proxmox'
     end
     
