@@ -14,7 +14,7 @@ ForemanProxmox::Engine.routes.draw do
     get 'proxmoxserver/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
     
     resources :proxmoxservers do
-        get 'setactive/:id' => 'proxmoxservers#setactive', as: 'setactive'
+        get ':id/setactive' => 'proxmoxservers#setactive', as: 'setactive'
     end
          
     resources :virtualmachines, :only => [] do
