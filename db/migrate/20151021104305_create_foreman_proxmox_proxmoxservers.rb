@@ -4,6 +4,7 @@ class CreateForemanProxmoxProxmoxservers < ActiveRecord::Migration
       t.string :ip
       t.string :username
       t.string :password
+      t.boolean :current
 
       t.timestamps null: false
     end
