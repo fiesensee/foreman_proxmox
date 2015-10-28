@@ -26,6 +26,9 @@ module ForemanProxmox
     def update
     end
     
+    def destroy
+    end
+    
     def setcurrent
       oldcurrent = Proxmoxserver.where("current = 'true'").first
       if oldcurrent != nil then
