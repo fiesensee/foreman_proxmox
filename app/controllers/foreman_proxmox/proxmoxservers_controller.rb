@@ -33,7 +33,9 @@ module ForemanProxmox
       end
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
-      newcurrent.save
+      if newcurrent.save then
+        flash[:notice] = newcurrent.current
+      end
       redirect_to :back
     end
     
