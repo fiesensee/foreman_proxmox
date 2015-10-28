@@ -13,7 +13,7 @@ module ForemanProxmox
       new_vm.mac = host.mac
       new_vm.proxmoxserver_id = proxmoxserver.id
       if new_vm.save then
-        flash[:notice] = _('Success')
+        flash[:notice] = "vmid = #{new_vm.vmid}"
       else
         flash[:error] = _('Fail')
       end
