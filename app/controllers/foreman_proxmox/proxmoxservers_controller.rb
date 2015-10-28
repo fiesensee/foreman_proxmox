@@ -27,6 +27,11 @@ module ForemanProxmox
     end
     
     def setcurrent
+      oldcurrent = Proxmoxserver.where("current = 'true'").first
+      oldcurrent.current = false
+      newcurrent = Proxmoxserver.find(params[:id])
+      newcurrent.current= true
+      redirect_to :back
     end
     
     def start_all_vms

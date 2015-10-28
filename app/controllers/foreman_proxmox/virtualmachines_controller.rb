@@ -2,7 +2,6 @@ module ForemanProxmox
   class VirtualmachinesController < ApplicationController
     
     def create_vm
-      proxmoxserver = Proxmoxserver.last
       host = Host.find(params[:id])
       new_vm = Virtualmachine.new
       new_vm.vmid = host.params['vmid']
@@ -11,9 +10,13 @@ module ForemanProxmox
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
       new_vm.mac = host.mac
-      new_vm.proxmoxserver_id = proxmoxserver.id
+      if host.params['proxmox_id'] == nil then
+        new_vm.proxmoxserver_id = Proxmoxserver.where("current: 'true'").first
+      else
+        new_vm.proxmoxserver_id = host.params['proxmox_id']
+      end
       if new_vm.save then
-        flash[:notice] = "vmid = #{new_vm.vmid}"
+        flash[:notice] = "VM saved in DB"
       else
         flash[:error] = _('Fail')
       end
