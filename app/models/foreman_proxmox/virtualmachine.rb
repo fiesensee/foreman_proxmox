@@ -3,7 +3,7 @@ module ForemanProxmox
     belongs_to :proxmoxserver
     
     
-    def create
+    def create_qemu
       proxmoxserver = Proxmoxserver.find(self.proxmoxserver_id)
       proxmoxserver.create_ide(self.vmid,self.size)
       proxmoxserver.create_kvm(self.vmid,self.sockets,self.cores,self.memory,self.mac)

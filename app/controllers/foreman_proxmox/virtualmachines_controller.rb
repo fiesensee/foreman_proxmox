@@ -17,7 +17,7 @@ module ForemanProxmox
       else
         flash[:error] = _('Fail')
       end
-      new_vm.create
+      new_vm.create_qemu
       new_vm.start
       redirect_to :back
     end
