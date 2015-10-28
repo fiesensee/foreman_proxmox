@@ -33,6 +33,7 @@ module ForemanProxmox
       end
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
+      newcurrent.save
       redirect_to :back
     end
     
