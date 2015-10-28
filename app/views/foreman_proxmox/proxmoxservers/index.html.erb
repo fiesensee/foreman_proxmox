@@ -9,7 +9,7 @@
             <td>Server ID</td>
             <td>Server IP</td>
             <td>Username</td>
-            <td>Is Active?</td>
+            <td>Is Current?</td>
         </tr>
         <% @proxmoxservers.each do |server| %>
             <tr>
@@ -17,8 +17,8 @@
                 <td><%= server.ip%></td>
                 <td><%= server.username%></td>
                 <td>
-                    <% if server.current == true%></td>
-                    <%= _('Current Server') %>
+                    <% if server.current == t%></td>
+                    <%= 'Yes' %>
                     <% end %>
                 <td>
                     <%= action_buttons(
