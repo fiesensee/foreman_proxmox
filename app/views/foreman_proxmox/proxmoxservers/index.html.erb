@@ -21,10 +21,12 @@
                     <%= _('Yes') %>
                     <% end %>
                 </td>
+                <td>
                     <%= action_buttons(
                             link_to(_('Edit'),edit_proxmoxserver_path(:id => server.id)),
                             link_to(_('Show'),proxmoxserver_path(:id => server.id)),
                             link_to(_('Set Current'),setcurrent_path(:id => server.id))
+                            link_to(_('Delete'),{:controller => 'proxmoxservers', :action => 'delete', :id => server.id})
                         ) %>
                 </td>
             </tr>
