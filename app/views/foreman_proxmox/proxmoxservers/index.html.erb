@@ -17,10 +17,10 @@
                 <td><%= server.ip%></td>
                 <td><%= server.username%></td>
                 <td>
-                    <% if server.current == true then%></td>
+                    <% if server.current == true then%>
                     <%= _('Yes') %>
                     <% end %>
-                <td>
+                </td>
                     <%= action_buttons(
                             link_to(_('Edit'),edit_proxmoxserver_path(:id => server.id)),
                             link_to(_('Show'),proxmoxserver_path(:id => server.id)),
