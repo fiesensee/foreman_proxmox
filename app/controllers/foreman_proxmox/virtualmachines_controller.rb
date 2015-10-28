@@ -12,6 +12,7 @@ module ForemanProxmox
       new_vm.size = host.params['size']
       new_vm.mac = host.mac
       new_vm.proxmoxserver_id = proxmoxserver.id
+      new_vm.safe
       new_vm.create
       new_vm.start
       redirect_to :back
