@@ -11,12 +11,12 @@ module ForemanProxmox
         proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
       end
       
-      # if host.params['vmid'] == nil then
-      #   new_vm.vmid = proxmoxserver.get_next_free_vmid
-      #   flash[:notice] = "new_vm.vmid"
-      # else
-      #   new_vm.vmid = host.params['vmid']
-      # end
+      if host.params['vmid'] == nil then
+        new_vm.vmid = proxmoxserver.get_next_free_vmid
+        flash[:notice] = "new_vm.vmid"
+      else
+        new_vm.vmid = host.params['vmid']
+      end
       
       # new_vm.sockets = host.params['sockets']
       # new_vm.cores = host.params['cores']
