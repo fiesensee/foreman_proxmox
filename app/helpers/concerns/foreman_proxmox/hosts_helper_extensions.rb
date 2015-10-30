@@ -12,7 +12,7 @@ module ForemanProxmox
       title_actions(
           if @host.build
             button_group(
-              display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host}, :class => 'btn')
+              display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host.id}, :class => 'btn')
             )
           else
             button_group(
