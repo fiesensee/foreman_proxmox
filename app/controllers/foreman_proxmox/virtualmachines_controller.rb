@@ -4,10 +4,11 @@ module ForemanProxmox
     
     def create_vm
       host = Host.find(params[:id])
+      $LOG= Logger.new("/tmp/proxmox_debug.log")
       
       if Virtualmachine.where("host_id = '#{host.id}'").first == nil then
         new_vm = Virtualmachine.new
-        $LOG= Logger.new("/tmp/proxmox_debug.log")
+        
         $LOG.error("creating vm")
         
         if host.params['proxmox_id'] == nil then
