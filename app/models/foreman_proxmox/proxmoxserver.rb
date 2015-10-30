@@ -94,6 +94,7 @@ module ForemanProxmox
         flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
+      $LOG = "authenticatingf"
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
       credentials= {:username => "#{self.username}@pam", :password => self.password}
