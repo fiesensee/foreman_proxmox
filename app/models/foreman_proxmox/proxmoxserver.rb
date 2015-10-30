@@ -61,6 +61,7 @@ module ForemanProxmox
     
     def get_next_free_vmid
       $LOG= Logger.new("/tmp/proxmox_debug.log")
+      $LOG.error("start here")
       authenticate_client
       nodes_response = client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
@@ -85,7 +86,7 @@ module ForemanProxmox
         current_node_id+=1
         current_node = nodes["data"][current_node_id]
       end
-      $LOG.error = (highest_vmid+1).to_s
+      $LOG.error(highest_vmid+1).to_s
       return highest_vmid+1
     end
     
@@ -94,7 +95,7 @@ module ForemanProxmox
         flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
-      $LOG = "authenticatingf"
+      $LOG.error("authenticating")
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
       credentials= {:username => "#{self.username}@pam", :password => self.password}
