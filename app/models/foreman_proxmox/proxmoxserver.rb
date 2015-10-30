@@ -52,7 +52,7 @@ module ForemanProxmox
         vms_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{node_name}/qemu")
         vms = JSON.parse(vms_response.body)
         current_vm = vms["data"][current_vm_id]
-        while cur_vm != nil do
+        while currrent_vm != nil do
           if vms["data"][current_vm_id]["vmid"] == vmid
             @node = node_name
           end
