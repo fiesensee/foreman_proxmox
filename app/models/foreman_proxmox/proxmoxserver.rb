@@ -76,7 +76,7 @@ module ForemanProxmox
       current_node = nodes["data"][current_node_id]
       $LOG.error(current_node)
       while current_node != nil 
-        node_name = nodes["data"][current_node]["node"]
+        node_name = nodes["data"][current_node_id]["node"]
         $LOG.error(node_name)
         current_vm_id = 0
         vms_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{node_name}/qemu")
@@ -86,7 +86,7 @@ module ForemanProxmox
         while current_vm != nil do
           if vms["data"][current_vm_id]["vmid"].to_i > highest_vmid 
             highest_vmid = vms["data"][current_vm_id]["vmid"].to_i
-            $LOG.error(hig)
+            $LOG.error(highest_vmid)
           end
           current_vm_id+=1
           current_vm = vms["data"][current_vm_id]
