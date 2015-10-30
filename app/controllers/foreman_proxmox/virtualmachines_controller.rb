@@ -42,6 +42,8 @@ module ForemanProxmox
         end
       end
       
+      new_vm = Virtualmachine.where("host_id = '#{host.id}'").first
+      
       new_vm.create_qemu
       new_vm.start
       
