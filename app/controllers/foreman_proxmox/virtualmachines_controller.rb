@@ -4,24 +4,35 @@ module ForemanProxmox
     def create_vm
       host = Host.find(params[:id])
       new_vm = Virtualmachine.new
-      new_vm.vmid = host.params['vmid']
+      
+      if host.params['proxmox_id'] == nil then
+        proxmoxserver = Proxmoxserver.where("current: 'true'").first
+      else
+        proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
+      end
+      
+      if host.params['vmid'] == nil then
+        new_vm.vmid = proxmoxserver.get_next_free_vmid
+      else
+        new_vm.vmid = host.params['vmid']
+      end
+      
       new_vm.sockets = host.params['sockets']
       new_vm.cores = host.params['cores']
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
       new_vm.mac = host.mac
-      if host.params['proxmox_id'] == nil then
-        new_vm.proxmoxserver_id = Proxmoxserver.where("current: 'true'").first
-      else
-        new_vm.proxmoxserver_id = host.params['proxmox_id']
-      end
+      new_vm.proxmox_id = proxmoxserver.id
+      
       if new_vm.save then
         flash[:notice] = "VM saved in DB"
       else
         flash[:error] = _('Fail')
+      
       end
       new_vm.create_qemu
       new_vm.start
+      
       redirect_to :back
     end
     
