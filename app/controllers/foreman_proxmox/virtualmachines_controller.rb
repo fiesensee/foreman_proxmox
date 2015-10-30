@@ -10,6 +10,8 @@ module ForemanProxmox
       else
         proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
       end
+    
+      new_vm.save
       
       if host.params['vmid'] == nil then
         # new_vm.vmid = proxmoxserver.get_next_free_vmid
