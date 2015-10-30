@@ -23,7 +23,7 @@ module ForemanProxmox
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
       new_vm.mac = host.mac
-      new_vm.proxmox_id = proxmoxserver.id
+      new_vm.proxmoxserver_id = proxmoxserver.id
       
       if new_vm.save then
         flash[:notice] = "VM saved in DB"
