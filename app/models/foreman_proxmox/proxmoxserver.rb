@@ -60,6 +60,7 @@ module ForemanProxmox
     end
     
     def get_next_free_vmid
+      $LOG= Logger.new("/tmp/proxmox_debug.log")
       authenticate_client
       nodes_response = client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
