@@ -1,28 +1,32 @@
+require 'logger'
 module ForemanProxmox
   class VirtualmachinesController < ApplicationController
     
     def create_vm
       host = Host.find(params[:id])
       new_vm = Virtualmachine.new
-      
+      $LOG= Logger.new("/tmp/proxmox_debug.log")
+      $LOG.error("creating vm")
       if host.params['proxmox_id'] == nil then
         proxmoxserver = Proxmoxserver.where("current = 'true'").first
       else
         proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
       end
-      
+      new_vm.proxmoxserver_id = proxmoxserver.id
+      $LOG.error(new_vm.proxmoxserver_id)
       if host.params['vmid'] == nil then
+        $LOG.error("searching vmid")
         new_vm.get_free_vmid
       else
         new_vm.vmid = host.params['vmid']
       end
-      
+      $LOG.error(new_vm.vmid)
       new_vm.sockets = host.params['sockets']
       new_vm.cores = host.params['cores']
       new_vm.memory = host.params['memory']
       new_vm.size = host.params['size']
       new_vm.mac = host.mac
-      new_vm.proxmoxserver_id = proxmoxserver.id
+      
       
       # if new_vm.save then
       #   flash[:notice] = "VM saved in DB"
