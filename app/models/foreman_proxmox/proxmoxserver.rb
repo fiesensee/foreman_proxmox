@@ -16,7 +16,6 @@ module ForemanProxmox
     
     def get_first_node_in_cluster
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       authenticate_client
@@ -31,9 +30,8 @@ module ForemanProxmox
       code_response = @client.get("https://#{self.ip}:8006/api2/json/access/ticket")
       $LOG.error(code_response)
       if code_response.code != 200 then
-        # self = Proxmoxserver.find(self.id + 1)
-        # self.save
         $LOG.error("connection fail")
+        flash[:error] = "Proxmoxserver seems down, try again or change Server"
         return false
       else
         $LOG.error("connection there")
@@ -101,7 +99,6 @@ module ForemanProxmox
     
     def authenticate_client
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       $LOG.error("authenticating")
@@ -126,7 +123,6 @@ module ForemanProxmox
     #manage kvms
     def create_ide(vmid, size)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       authenticate_client
@@ -138,7 +134,6 @@ module ForemanProxmox
     
     def create_kvm(vmid, sockets, cores ,memory,mac)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       authenticate_client
@@ -153,7 +148,6 @@ module ForemanProxmox
     
     def delete_kvm(vmid)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       find_node_for_vmid(vmid)
@@ -164,7 +158,6 @@ module ForemanProxmox
     
     def start_kvm(vmid)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       find_node_for_vmid(vmid)
@@ -175,7 +168,6 @@ module ForemanProxmox
     
     def stop_kvm(vmid)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       find_node_for_vmid(vmid)
@@ -186,7 +178,6 @@ module ForemanProxmox
     
     def reboot_kvm(vmid)
       if !check_ip_connectivity then
-        flash[:error] = "Proxmoxserver seems down, try again"
         return nil
       end
       find_node_for_vmid(vmid)

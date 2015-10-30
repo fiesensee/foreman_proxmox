@@ -75,5 +75,10 @@ module ForemanProxmox
       redirect_to :back
     end
     
+    
+    
+    def show
+    end
+    
   end
 end

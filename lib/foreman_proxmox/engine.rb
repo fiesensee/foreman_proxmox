@@ -27,7 +27,7 @@ module ForemanProxmox
           permission :view_foreman_proxmox, {:'foreman_proxmox/proxmoxservers' => [:index]}
           permission :manage_proxmoxserver, {:'foreman_proxmox/proxmoxservers' => [:new, :create, :stop_all_vms, :start_all_vms, :reboot_node, :shutdown_node]}
           permission :proxmoxservers_crud, {:'foreman_proxmox/proxmoxservers' => [:edit, :update, :show, :delete, :setcurrent]}
-          permission :manage_vm, {:'foreman_proxmox/virtualmachines' => [:create_vm, :start_vm, :stop_vm, :reboot_vm, :delete_vm]}
+          permission :manage_vm, {:'foreman_proxmox/virtualmachines' => [:create_vm, :start_vm, :stop_vm, :reboot_vm, :delete_vm, :show]}
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
