@@ -4,12 +4,13 @@ require 'logger'
 module ForemanProxmox
   class Proxmoxserver < ActiveRecord::Base
     has_many :virtualmachines
+    $LOG= Logger.new("/tmp/proxmox_debug.log")
     
     def setup_httpclient
       @client= HTTPClient.new
       @client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
       @node = get_first_node_in_cluster
-      $LOG= Logger.new("/tmp/proxmox_debug.log")
+      
       $LOG.error("Created HttpClient")
     end
     
