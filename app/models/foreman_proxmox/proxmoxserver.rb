@@ -28,14 +28,16 @@ module ForemanProxmox
       $LOG.error("checking connect")
       if @client == nil then setup_httpclient end
       code_response = @client.get("https://#{self.ip}:8006/api2/json/access/ticket")
+      $LOG.error(code_response)
       if code_response != 200 then
         self.ip = Proxmoxserver.find(self.id + 1)
         self.save
         $LOG.error("connection fail")
         return false
+      else
+        $LOG.error("connection there")
+        return true
       end
-      $LOG.error("connection there")
-      return true
     end
     
     def find_node_for_vmid(vmid)
