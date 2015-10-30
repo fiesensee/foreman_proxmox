@@ -2,21 +2,21 @@ module ForemanProxmox
   class VirtualmachinesController < ApplicationController
     
     def create_vm
-      host = Host.find(params[:id])
-      new_vm = Virtualmachine.new
+      # host = Host.find(params[:id])
+      # new_vm = Virtualmachine.new
       
-      if host.params['proxmox_id'] == nil then
-        proxmoxserver = Proxmoxserver.where("current = 'true'").first
-      else
-        proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
-      end
+      # if host.params['proxmox_id'] == nil then
+      #   proxmoxserver = Proxmoxserver.where("current = 'true'").first
+      # else
+      #   proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
+      # end
       
-      if host.params['vmid'] == nil then
-        new_vm.vmid = proxmoxserver.get_next_free_vmid
-        flash[:notice] = "new_vm.vmid"
-      else
-        new_vm.vmid = host.params['vmid']
-      end
+      # if host.params['vmid'] == nil then
+      #   new_vm.vmid = proxmoxserver.get_next_free_vmid
+      #   flash[:notice] = "new_vm.vmid"
+      # else
+      #   new_vm.vmid = host.params['vmid']
+      # end
       
       # new_vm.sockets = host.params['sockets']
       # new_vm.cores = host.params['cores']
