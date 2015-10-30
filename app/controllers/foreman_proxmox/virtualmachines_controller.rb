@@ -6,7 +6,7 @@ module ForemanProxmox
       new_vm = Virtualmachine.new
       
       if host.params['proxmox_id'] == nil then
-        proxmoxserver = Proxmoxserver.where("current 'true'").first
+        proxmoxserver = Proxmoxserver.where("current = 'true'").first
       else
         proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
       end
