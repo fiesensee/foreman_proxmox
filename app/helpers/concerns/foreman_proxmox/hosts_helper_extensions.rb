@@ -16,11 +16,11 @@ module ForemanProxmox
             )
           else
             button_group(
-              display_proxmox_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host}, :class => 'btn'),
+              display_proxmox_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host.id}, :class => 'btn'),
               select_action_button(_('Power Control'),{},
-              display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start_vm', :id => @host}, :class => 'btn'),
-              display_proxmox_if_authorized(_('Stop VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'stop_vm', :id => @host}, :class => 'btn'),
-              display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot_vm', :id => @host}, :class => 'btn')
+              display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start_vm', :id => @host.id}, :class => 'btn'),
+              display_proxmox_if_authorized(_('Stop VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'stop_vm', :id => @host.id}, :class => 'btn'),
+              display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot_vm', :id => @host.id}, :class => 'btn')
               )
             )
           end
