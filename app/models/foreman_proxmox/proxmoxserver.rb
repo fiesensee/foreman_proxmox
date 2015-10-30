@@ -84,7 +84,7 @@ module ForemanProxmox
         current_node_id+=1
         current_node = nodes["data"][current_node_id]
       end
-      $LOG.error = highest_vmid+
+      $LOG.error = (highest_vmid+1).to_s
       return highest_vmid+1
     end
     
