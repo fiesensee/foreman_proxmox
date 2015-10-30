@@ -63,6 +63,7 @@ module ForemanProxmox
       authenticate_client
       nodes_response = client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
+      $LOG.error = nodes
       current_node_id = 0
       highest_vmid = 0
       current_node = nodes["data"][current_node_id]
@@ -71,6 +72,7 @@ module ForemanProxmox
         current_vm_id = 0
         vms_response = client.get("https://#{self.ip}:8006/api2/json/nodes/#{node_name}/qemu")
         vms = JSON.parse(vms_response)
+        $LOG.error = vms
         current_vm = vms["data"][current_vm_id]
         while current_vm != nil do
           if vms["data"][current_vm_id]["vmid"].to_i > highest_vmid 
@@ -82,6 +84,7 @@ module ForemanProxmox
         current_node_id+=1
         current_node = nodes["data"][current_node_id]
       end
+      $LOG.error = highest_vmid+
       return highest_vmid+1
     end
     
@@ -105,6 +108,7 @@ module ForemanProxmox
       cookie_ticket.value= ticket
       cookie_ticket.url= url
       @client.cookie_manager.add(cookie_ticket)
+      $LOG.error = "authenticated"
     end
     
     #manage kvms
