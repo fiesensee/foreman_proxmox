@@ -45,7 +45,7 @@ module ForemanProxmox
       nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
       current_node_id = 0
-      current_node = nodes["data"][current_node]
+      current_node = nodes["data"][current_node_i]
       while current_node != nil
         node_name = nodes["data"][current_node_id]["node"]
         current_vm_id = 0
