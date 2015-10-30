@@ -25,14 +25,14 @@ module ForemanProxmox
       new_vm.mac = host.mac
       new_vm.proxmoxserver_id = proxmoxserver.id
       
-      if new_vm.save then
-        flash[:notice] = "VM saved in DB"
-      else
-        flash[:error] = _('Fail')
+      # if new_vm.save then
+      #   flash[:notice] = "VM saved in DB"
+      # else
+      #   flash[:error] = _('Fail')
       
-      end
-      new_vm.create_qemu
-      new_vm.start
+      # end
+      # new_vm.create_qemu
+      # new_vm.start
       
       redirect_to :back
     end
