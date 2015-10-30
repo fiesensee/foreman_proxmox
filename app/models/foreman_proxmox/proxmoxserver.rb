@@ -19,7 +19,7 @@ module ForemanProxmox
         return nil
       end
       authenticate_client
-      nodes_response = client.get("https://#{self.ip}:8006/api2/json/nodes")
+      nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
       return nodes["data"][0]["node"]
     end
