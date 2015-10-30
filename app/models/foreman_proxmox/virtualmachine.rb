@@ -1,6 +1,7 @@
 module ForemanProxmox
   class Virtualmachine < ActiveRecord::Base
     belongs_to :proxmoxserver
+    belongs_to :host
     
     
     def create_qemu
