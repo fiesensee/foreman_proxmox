@@ -116,7 +116,7 @@ module ForemanProxmox
       cookie_ticket.value= ticket
       cookie_ticket.url= url
       @client.cookie_manager.add(cookie_ticket)
-      $LOG.error = "authenticated"
+      $LOG.error("authenticated")
     end
     
     #manage kvms
