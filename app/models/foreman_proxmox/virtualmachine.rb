@@ -32,7 +32,7 @@ module ForemanProxmox
     
     def get_free_vmid
       proxmoxserver = Proxmoxserver.find(self.proxmoxserver_id)
-      return proxmoxserver.get_next_free_vmid
+      self.vmid = proxmoxserver.get_next_free_vmid
     end
   end
 end
