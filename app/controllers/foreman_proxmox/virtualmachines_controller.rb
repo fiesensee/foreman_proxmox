@@ -15,7 +15,7 @@ module ForemanProxmox
       
       if host.params['vmid'] == nil then
         # new_vm.vmid = proxmoxserver.get_next_free_vmid
-        flash[:notice] = new_vm.get_free_vmid
+        flash[:notice] = Virtualmachine.get_free_vmid
       else
         new_vm.vmid = host.params['vmid']
       end
