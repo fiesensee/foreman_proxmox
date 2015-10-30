@@ -18,21 +18,21 @@ module ForemanProxmox
         new_vm.vmid = host.params['vmid']
       end
       
-      new_vm.sockets = host.params['sockets']
-      new_vm.cores = host.params['cores']
-      new_vm.memory = host.params['memory']
-      new_vm.size = host.params['size']
-      new_vm.mac = host.mac
-      new_vm.proxmox_id = proxmoxserver.id
+      # new_vm.sockets = host.params['sockets']
+      # new_vm.cores = host.params['cores']
+      # new_vm.memory = host.params['memory']
+      # new_vm.size = host.params['size']
+      # new_vm.mac = host.mac
+      # new_vm.proxmox_id = proxmoxserver.id
       
-      if new_vm.save then
-        flash[:notice] = "VM saved in DB"
-      else
-        flash[:error] = _('Fail')
+      # if new_vm.save then
+      #   flash[:notice] = "VM saved in DB"
+      # else
+      #   flash[:error] = _('Fail')
       
-      end
-      new_vm.create_qemu
-      new_vm.start
+      # end
+      # new_vm.create_qemu
+      # new_vm.start
       
       redirect_to :back
     end
