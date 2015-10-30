@@ -11,7 +11,7 @@ module ForemanProxmox
     def host_title_actions_with_proxmox(*args)
       title_actions(
           button_group(
-              display_proxmox_if_authorized(_("Show VM details"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'show', :id => @host.id}, :class => 'btn')
+              display_proxmox_if_authorized(_("VM details"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'show', :id => @host.id}, :class => 'btn')
           ),
           if @host.build
             button_group(
