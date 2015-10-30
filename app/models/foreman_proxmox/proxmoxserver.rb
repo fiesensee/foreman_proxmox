@@ -80,7 +80,7 @@ module ForemanProxmox
         $LOG.error(node_name)
         current_vm_id = 0
         vms_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{node_name}/qemu")
-        vms = JSON.parse(vms_response)
+        vms = JSON.parse(vms_response.body)
         $LOG.error(vms)
         current_vm = vms["data"][current_vm_id]
         while current_vm != nil do
