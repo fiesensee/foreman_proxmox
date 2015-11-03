@@ -10,9 +10,11 @@ module ForemanProxmox
     
     def host_title_actions_with_proxmox(*args)
       title_actions(
+          if Virtualmachine.where("host_id = '#{@host.id}'").first != nil
           button_group(
               display_proxmox_if_authorized(_("VM details"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'show', :id => @host.id}, :class => 'btn')
-          ),
+          )
+          end,
           if @host.build
             button_group(
               display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host.id}, :class => 'btn')
@@ -29,6 +31,15 @@ module ForemanProxmox
           end
         )
       host_title_actions_without_proxmox(*args)
+        title_actions(
+          button_group(
+            link_to_if_authorized(_("Destroy"), hash_for_host_path(:id => host).merge(:auth_object => host, :permission => 'destroy_hosts'),
+                                  :class => "btn btn-danger",
+                                  :id => "delete-button",
+                                  :data => { :message => delete_host_dialog(host) },
+                                  :method => :delete)
+          ) 
+        )
     end
     
     def display_proxmox_if_authorized(name, options = {}, html_options = {})
