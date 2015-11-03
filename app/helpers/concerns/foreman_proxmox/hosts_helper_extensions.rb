@@ -44,7 +44,7 @@ module ForemanProxmox
                                     :id       => "build-review",
                                     :data     => { :toggle => 'modal',
                                                    :target => '#review_before_build',
-                                                   :url    => review_before_build_host_path(:id => host)
+                                                   :url    => review_before_build_host_path(:id => @host)
                                     }
             )
             end
