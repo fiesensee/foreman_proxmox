@@ -63,7 +63,7 @@ module ForemanProxmox
     def delete_vm
       vm = Virtualmachine.where("host_id = '#{params[:id]}'").first
       vm.delete_virtualmachine
-      redirect_to(hash_for_host_path(:id => @host).merge(:auth_object => @host, :permission => 'destroy_hosts'))
+      redirect_to(hash_for_host_path(:id => params[:id]).merge(:auth_object => Host.find(params[:id]), :permission => 'destroy_hosts'))
     end
     
     
