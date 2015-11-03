@@ -33,10 +33,10 @@ module ForemanProxmox
       host_title_actions_without_proxmox(*args)
         title_actions(
           button_group(
-            link_to_if_authorized(_("Destroy"), hash_for_host_path(:id => host).merge(:auth_object => host, :permission => 'destroy_hosts'),
+            link_to_if_authorized(_("Destroy"), hash_for_host_path(:id => @host).merge(:auth_object => @host, :permission => 'destroy_hosts'),
                                   :class => "btn btn-danger",
                                   :id => "delete-button",
-                                  :data => { :message => delete_host_dialog(host) },
+                                  :data => { :message => delete_host_dialog(@host) },
                                   :method => :delete)
           ) 
         )

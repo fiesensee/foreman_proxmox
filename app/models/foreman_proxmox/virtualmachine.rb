@@ -32,6 +32,7 @@ module ForemanProxmox
       proxmoxserver = Proxmoxserver.where("current = 'true'").first
       self.stop
       proxmoxserver.delete_kvm(self.vmid)
+      self.destroy
     end
     
     def get_free_vmid
