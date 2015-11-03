@@ -21,7 +21,6 @@ module ForemanProxmox
             )
           else
             button_group(
-              display_proxmox_if_authorized(_("Delete VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host.id}, :class => 'btn'),
               select_action_button(_('Power Control'),{},
               display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start_vm', :id => @host.id}, :class => 'btn'),
               display_proxmox_if_authorized(_('Stop VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'stop_vm', :id => @host.id}, :class => 'btn'),
@@ -59,17 +58,19 @@ module ForemanProxmox
             link_to_if_authorized(_("Run puppet"), hash_for_puppetrun_host_path(:id => @host).merge(:auth_object => @host, :permission => 'puppetrun_hosts'),
                                   :disabled => !Setting[:puppetrun],
                                   :title    => _("Trigger a puppetrun on a node; requires that puppet run is enabled"))
+          
           end
           ),
           button_group(
-            link_to_if_authorized(_("Delete"), hash_for_host_path(:id => @host).merge(:auth_object => @host, :permission => 'destroy_hosts'),
+            display_proxmox_if_authorized(_("Delete"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host.id}),
                                   :class => "btn btn-danger",
                                   :id => "delete-button",
                                   :data => { :message => delete_host_dialog(@host) },
                                   :method => :delete)
           )
-        )
     end
+    
+  end
     
     def display_proxmox_if_authorized(name, options = {}, html_options = {})
       if is_authorized(options)
