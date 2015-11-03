@@ -38,7 +38,7 @@ module ForemanProxmox
                                     :title    => _("Cancel build request for this host"), :id => "cancel-build-button")
             else
               link_to_if_authorized(_("Build"), hash_for_host_path(:id => @host).merge(:auth_object => @host, :permission => 'build_hosts', :anchor => "review_before_build"),
-                                    :disabled => !host.can_be_built?,
+                                    :disabled => !@host.can_be_built?,
                                     :title    => _("Enable rebuild on next host boot"),
                                     :class    => "btn",
                                     :id       => "build-review",
@@ -49,7 +49,7 @@ module ForemanProxmox
             )
             end
           ),
-          if host.compute_resource_id || host.bmc_available?
+          if @host.compute_resource_id || @host.bmc_available?
           button_group(
               link_to(_("Loading power state ..."), '#', :disabled => true, :id => :loading_power_state)
           )
