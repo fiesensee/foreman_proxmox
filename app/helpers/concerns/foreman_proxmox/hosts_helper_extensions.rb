@@ -87,5 +87,5 @@ module ForemanProxmox
     def is_authorized(options)
       User.current.allowed_to?(options)
     end
-  end
 end
+
