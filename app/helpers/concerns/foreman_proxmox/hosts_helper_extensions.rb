@@ -28,10 +28,7 @@ module ForemanProxmox
               display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot_vm', :id => @host.id}, :class => 'btn')
               )
             )
-          end
-        )
-      host_title_actions_without_proxmox(*args)
-        title_actions(
+          end,
           button_group(
             link_to_if_authorized(_("Destroy"), hash_for_host_path(:id => @host).merge(:auth_object => @host, :permission => 'destroy_hosts'),
                                   :class => "btn btn-danger",
@@ -40,6 +37,7 @@ module ForemanProxmox
                                   :method => :delete)
           ) 
         )
+      host_title_actions_without_proxmox(*args)
     end
     
     def display_proxmox_if_authorized(name, options = {}, html_options = {})
