@@ -78,6 +78,7 @@ module ForemanProxmox
     
     
     def show
+      @vm = Virtualmachine.where("host_id = '#{params[:id]}'").first
     end
     
   end
