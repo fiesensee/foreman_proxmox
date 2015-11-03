@@ -66,11 +66,10 @@ module ForemanProxmox
                                   :class => "btn btn-danger",
                                   :id => "delete-button",
                                   :data => { :message => delete_host_dialog(@host) },
-                                  :method => :delete)
+                                  :method => :delete
           )
+      )
     end
-    
-  end
     
     def display_proxmox_if_authorized(name, options = {}, html_options = {})
       if is_authorized(options)
@@ -87,5 +86,6 @@ module ForemanProxmox
     def is_authorized(options)
       User.current.allowed_to?(options)
     end
+  end
 end
 
