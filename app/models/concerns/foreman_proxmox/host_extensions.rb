@@ -14,6 +14,7 @@ module ForemanProxmox
     end
     
     def create
+      super
       new_vm = Virtualmachine.new
       if self.params['vmid'] == nil then
         new_vm.get_free_vmid
@@ -31,7 +32,7 @@ module ForemanProxmox
         new_vm.create_harddisk
         new_vm.create_virtualmachine
         new_vm.start
-        super
+        
     end
 
     module ClassMethods

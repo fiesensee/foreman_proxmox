@@ -15,11 +15,6 @@ module ForemanProxmox
               display_proxmox_if_authorized(_("VM details"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'show', :id => @host.id}, :class => 'btn')
           )
           end,
-          if @host.build
-            button_group(
-              display_proxmox_if_authorized(_("Create VM"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'create_vm', :id => @host.id}, :class => 'btn')
-            )
-          else
             button_group(
               select_action_button(_('Power Control'),{},
               display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start_vm', :id => @host.id}, :class => 'btn'),
@@ -27,7 +22,6 @@ module ForemanProxmox
               display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot_vm', :id => @host.id}, :class => 'btn')
               )
             )
-          end
       )
       host_title_actions_without_proxmox(*args)
     end
