@@ -7,7 +7,6 @@ class CreateForemanProxmoxVirtualmachines < ActiveRecord::Migration
       t.string :memory
       t.string :size
       t.string :mac
-      t.belongs_to :proxmoxserver
       t.belongs_to :host
       
       t.timestamps null: false

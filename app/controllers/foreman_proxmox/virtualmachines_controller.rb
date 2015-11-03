@@ -11,15 +11,6 @@ module ForemanProxmox
         
         $LOG.error("creating vm")
         
-        if host.params['proxmox_id'] == nil then
-          proxmoxserver = Proxmoxserver.where("current = 'true'").first
-        else
-          proxmoxserver = Proxmoxserver.find(host.params['proxmox_id'])
-        end
-        
-        new_vm.proxmoxserver_id = proxmoxserver.id
-        $LOG.error(new_vm.proxmoxserver_id)
-        
         if host.params['vmid'] == nil then
           $LOG.error("searching vmid")
           new_vm.get_free_vmid
@@ -35,7 +26,6 @@ module ForemanProxmox
         new_vm.mac = host.mac
         new_vm.host_id = host.id
       
-      
         if new_vm.save then
           flash[:notice] = "VM saved in DB"
         else
@@ -45,7 +35,8 @@ module ForemanProxmox
       
       new_vm = Virtualmachine.where("host_id = '#{host.id}'").first
       
-      new_vm.create_qemu
+      new_vm.create_harddisk
+      new_vm.create_virtualmachine
       new_vm.start
       
       redirect_to :back
