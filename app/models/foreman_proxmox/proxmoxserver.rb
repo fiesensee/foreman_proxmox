@@ -3,7 +3,6 @@ require 'json'
 require 'logger'
 module ForemanProxmox
   class Proxmoxserver < ActiveRecord::Base
-    has_many :virtualmachines
     $LOG= Logger.new("/tmp/proxmox_debug.log")
     
     def setup_httpclient
