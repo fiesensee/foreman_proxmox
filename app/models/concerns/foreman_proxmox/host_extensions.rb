@@ -12,7 +12,10 @@ module ForemanProxmox
 
     module ClassMethods
       # create or overwrite class methods...
-      def class_method_name
+      def delete
+        vm = Virtualmachine.where("host_id = '#{params[:id]}'")
+        vm.delete_virtualmachine
+        super
       end
     end
   end
