@@ -28,7 +28,7 @@ module ForemanProxmox
       proxmoxserver.reboot_kvm(self.vmid)
     end
     
-    def delete
+    def delete_virtualmachine
       proxmoxserver = Proxmoxserver.where("current = 'true'").first
       self.stop
       proxmoxserver.delete_kvm(self.vmid)
