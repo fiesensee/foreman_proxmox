@@ -1,7 +1,6 @@
 module ForemanProxmox
   class Virtualmachine < ActiveRecord::Base
     belongs_to :host
-    has_many :harddisks, :dependent => :destroy
     
     def create_harddisk
       proxmoxserver = Proxmoxserver.where("current = 'true'").first
