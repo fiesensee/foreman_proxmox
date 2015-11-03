@@ -62,11 +62,11 @@ module ForemanProxmox
           end
           ),
           button_group(
-            display_proxmox_if_authorized(_("Delete"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host.id}),
+            display_proxmox_if_authorized(_("Delete"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'delete_vm', :id => @host.id},
                                   :class => "btn btn-danger",
                                   :id => "delete-button",
                                   :data => { :message => delete_host_dialog(@host) },
-                                  :method => :delete
+                                  :method => :delete)
           )
       )
     end
