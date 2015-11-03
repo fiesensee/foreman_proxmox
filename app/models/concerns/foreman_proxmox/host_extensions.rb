@@ -8,7 +8,7 @@ module ForemanProxmox
 
     # create or overwrite instance methods...
     def destroy
-      $LOG.error("#{params[:id]}")
+      $LOG.error("#{self.id}")
         vm = Virtualmachine.where("host_id = #{@host.id}").first
         vm.delete_virtualmachine
         super
