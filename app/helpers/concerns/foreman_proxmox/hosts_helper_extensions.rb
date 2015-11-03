@@ -29,6 +29,7 @@ module ForemanProxmox
             )
           end
       )
+      host_title_actions_without_proxmox(*args)
     end
     
     def display_proxmox_if_authorized(name, options = {}, html_options = {})
