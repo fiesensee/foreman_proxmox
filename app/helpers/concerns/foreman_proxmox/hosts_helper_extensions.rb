@@ -32,7 +32,7 @@ module ForemanProxmox
           button_group(
             link_to_if_authorized(_("Edit"), hash_for_edit_host_path(:id => @host).merge(:auth_object => @host),
                                     :title    => _("Edit your host"), :id => "edit-button"),
-            if host.build
+            if @host.build
               link_to_if_authorized(_("Cancel build"), hash_for_cancelBuild_host_path(:id => @host).merge(:auth_object => @host, :permission => 'build_hosts'),
                                     :disabled => host.can_be_built?,
                                     :title    => _("Cancel build request for this host"), :id => "cancel-build-button")
