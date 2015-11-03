@@ -8,6 +8,7 @@ module ForemanProxmox
 
     # create or overwrite instance methods...
     def destroy
+      flash[:notice] = "#{params[:id]}"
         vm = Virtualmachine.where("host_id = #{@host.id}").first
         vm.delete_virtualmachine
         super
