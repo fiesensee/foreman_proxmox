@@ -1,1 +1,24 @@
-test
+<div>
+    <table id="properties" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>VMID</th>
+                <th>Sockets</th>
+                <th>Cores</th>
+                <th>Memory</th>
+                <th>Host ID</th>
+                <th>Server ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= @vm.vmid %></td>
+                <td><%= @vm.sockets %></td>
+                <td><%= @vm.cores %></td>
+                <td><%= @vm.memory %></td>
+                <td><%= @vm.host_id %></td>
+                <td><%= @vm.proxmoxserver_id %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

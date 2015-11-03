@@ -14,16 +14,6 @@ module ForemanProxmox
       $LOG.error("Created HttpClient")
     end
     
-    def get_first_node_in_cluster
-      if !check_ip_connectivity then
-        return nil
-      end
-      authenticate_client
-      nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
-      nodes = JSON.parse(nodes_response.body)
-      return nodes["data"][0]["node"]
-    end
-    
     def check_ip_connectivity
       $LOG.error("checking connect")
       if @client == nil then setup_httpclient end
@@ -37,6 +27,39 @@ module ForemanProxmox
         $LOG.error("connection there")
         return true
       end
+    end
+    
+    def authenticate_client
+      if !check_ip_connectivity then
+        return nil
+      end
+      $LOG.error("authenticating")
+      domain= "https://#{self.ip}:8006/"
+      url= URI.parse(domain)
+      credentials= {:username => "#{self.username}@pam", :password => self.password}
+      auth_response= @client.post("https://#{self.ip}:8006/api2/json/access/ticket", credentials)
+      $LOG.error(auth_response.body)
+      auth= JSON.parse(auth_response.body)
+      ticket= auth["data"]["ticket"]
+      token= auth["data"]["CSRFPreventionToken"]
+      @header= {:CSRFPreventionToken => token}
+      $LOG.error("#{ticket} #{token}")
+      cookie_ticket= WebAgent::Cookie.new
+      cookie_ticket.name= 'PVEAuthCookie'
+      cookie_ticket.value= ticket
+      cookie_ticket.url= url
+      @client.cookie_manager.add(cookie_ticket)
+      $LOG.error("authenticated")
+    end
+    
+    def get_first_node_in_cluster
+      if !check_ip_connectivity then
+        return nil
+      end
+      authenticate_client
+      nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
+      nodes = JSON.parse(nodes_response.body)
+      return nodes["data"][0]["node"]
     end
     
     def find_node_for_vmid(vmid)
@@ -97,28 +120,6 @@ module ForemanProxmox
       return highest_vmid+1
     end
     
-    def authenticate_client
-      if !check_ip_connectivity then
-        return nil
-      end
-      $LOG.error("authenticating")
-      domain= "https://#{self.ip}:8006/"
-      url= URI.parse(domain)
-      credentials= {:username => "#{self.username}@pam", :password => self.password}
-      auth_response= @client.post("https://#{self.ip}:8006/api2/json/access/ticket", credentials)
-      $LOG.error(auth_response.body)
-      auth= JSON.parse(auth_response.body)
-      ticket= auth["data"]["ticket"]
-      token= auth["data"]["CSRFPreventionToken"]
-      @header= {:CSRFPreventionToken => token}
-      $LOG.error("#{ticket} #{token}")
-      cookie_ticket= WebAgent::Cookie.new
-      cookie_ticket.name= 'PVEAuthCookie'
-      cookie_ticket.value= ticket
-      cookie_ticket.url= url
-      @client.cookie_manager.add(cookie_ticket)
-      $LOG.error("authenticated")
-    end
     
     #manage kvms
     def create_ide(vmid, size)
