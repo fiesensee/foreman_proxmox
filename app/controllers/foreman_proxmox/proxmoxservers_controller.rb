@@ -38,7 +38,7 @@ module ForemanProxmox
     end
     
     def setcurrent
-      oldcurrent = Proxmoxserver.where(:current => true)
+      oldcurrent = Proxmoxserver.all
       oldcurrent.each do |old|
         old.current = false
         old.save
