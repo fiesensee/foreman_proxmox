@@ -34,6 +34,7 @@ module ForemanProxmox
       if oldcurrent != nil then
         oldcurrent.current = false
       end
+      oldcurrent.save
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
       if newcurrent.save then
