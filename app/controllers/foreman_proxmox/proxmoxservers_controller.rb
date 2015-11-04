@@ -27,7 +27,7 @@ module ForemanProxmox
     end
     
     def destroy
-      super
+      Proxmoxserver.find(params[:id]).destroy
     end
     
     def setcurrent
