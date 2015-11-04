@@ -25,7 +25,7 @@ module ForemanProxmox
     
     def update
       proxmox = Proxmoxserver.find(params[:id])
-      proxmox.update(params[:proxmoxserver])
+      proxmox.update_attributes(params[:proxmoxserver])
       proxmox.save
     end
     
