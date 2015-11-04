@@ -37,7 +37,7 @@ module ForemanProxmox
     end
     
     def setcurrent
-      oldcurrent = Proxmoxserver.where("current = 'true'")
+      oldcurrent = Proxmoxserver.where("current = true")
       flash[:notice] = oldcurrent.first.id
       oldcurrent.each do |old|
         old.current = false
