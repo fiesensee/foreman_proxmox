@@ -24,10 +24,14 @@ module ForemanProxmox
     end
     
     def update
+      server = Proxmoxserver.find(params[:id])
+      server.ip = params[:id]
+      server.username = params[:username]
+      server.password = params[:password]
     end
     
     def destroy
-      Proxmoxserver.find(params[:id]).destroy
+      Proxmoxserver.find(params[:id]).delete
     end
     
     def setcurrent
