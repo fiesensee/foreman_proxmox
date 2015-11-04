@@ -2,7 +2,7 @@ module ForemanProxmox
   class ProxmoxserversController < ApplicationController
     
     def index
-      @proxmoxservers = Proxmoxserver.all.order(id: :asc)
+      @proxmoxservers = Proxmoxserver.order(id: :asc).all
     end
     
     def show
