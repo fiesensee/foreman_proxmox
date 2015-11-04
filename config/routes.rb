@@ -10,7 +10,7 @@ ForemanProxmox::Engine.routes.draw do
     get 'proxmoxservers/:id/reboot' => 'proxmoxservers#reboot', as: 'reboot'
     get 'proxmoxservers/:id/shutdown' => 'proxmoxservers#shutdown', as: 'shutdown'
     get 'proxmoxservers/:id/setcurrent' => 'proxmoxservers#setcurrent', as: 'setcurrent'
-    
+    get 'proxmoxservers/:id/destroy' => 'proxmoxservers#destroy', as: 'destroy'
     resources :proxmoxservers
          
     resources :virtualmachines, :only => [:show] do

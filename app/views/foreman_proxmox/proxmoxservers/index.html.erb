@@ -26,7 +26,7 @@
                             link_to(_('Edit'),edit_proxmoxserver_path(:id => server.id)),
                             link_to(_('Show'),proxmoxserver_path(:id => server.id)),
                             link_to(_('Set Current'),setcurrent_path(:id => server.id)),
-                            link_to(_('Delete'),{:controller => 'proxmoxservers', :action => 'destroy', :id => server.id})
+                            link_to(_('Delete'),destroy_path(:id => server.id))
                         ) %>
                 </td>
             </tr>
