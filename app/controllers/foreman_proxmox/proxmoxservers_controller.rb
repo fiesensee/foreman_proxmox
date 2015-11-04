@@ -39,7 +39,6 @@ module ForemanProxmox
     
     def setcurrent
       oldcurrent = Proxmoxserver.where(:current => true)
-      flash[:notice] = oldcurrent.first.id
       oldcurrent.each do |old|
         old.current = false
         old.save
