@@ -34,6 +34,7 @@ module ForemanProxmox
     
     def destroy
       Proxmoxserver.find(params[:id]).delete
+      redirect_to '/proxmox'
     end
     
     def setcurrent
@@ -46,22 +47,6 @@ module ForemanProxmox
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
       newcurrent.save
-      redirect_to :back
-    end
-    
-    def start_all_vms
-      redirect_to :back
-    end
-    
-    def stop_all_vms
-      redirect_to :back
-    end
-    
-    def reboot_node
-      redirect_to :back
-    end
-    
-    def shutdown_node
       redirect_to :back
     end
     

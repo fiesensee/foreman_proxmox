@@ -185,20 +185,6 @@ module ForemanProxmox
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
-
-    
-    #manage node
-    def reboot
-    end
-    
-    def shutdown
-    end
-    
-    def start_all_vms
-    end
-    
-    def stop_all_vms
-    end
     
   end
 end

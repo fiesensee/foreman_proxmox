@@ -5,10 +5,6 @@ end
 
 ForemanProxmox::Engine.routes.draw do
     
-    get 'proxmoxservers/:id/start_all_vms' => 'proxmoxservers#start_all_vms', as: 'startall'
-    get 'proxmoxservers/:id/stop_all_vms' => 'proxmoxservers#stop_all_vms', as: 'stopall'
-    get 'proxmoxservers/:id/reboot' => 'proxmoxservers#reboot', as: 'reboot'
-    get 'proxmoxservers/:id/shutdown' => 'proxmoxservers#shutdown', as: 'shutdown'
     get 'proxmoxservers/:id/setcurrent' => 'proxmoxservers#setcurrent', as: 'setcurrent'
     get 'proxmoxservers/:id/destroy' => 'proxmoxservers#destroy', as: 'destroy'
     resources :proxmoxservers
