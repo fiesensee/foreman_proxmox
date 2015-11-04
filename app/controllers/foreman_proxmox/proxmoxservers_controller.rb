@@ -32,15 +32,14 @@ module ForemanProxmox
     
     def setcurrent
       oldcurrent = Proxmoxserver.where("current = 'true'")
+      flash[:notice] = oldcurrent.first.id
       oldcurrent.each do |old|
         old.current = false
         old.save
       end
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
-      if newcurrent.save then
-        flash[:notice] = newcurrent.current
-      end
+      newcurrent.save
       redirect_to :back
     end
     
