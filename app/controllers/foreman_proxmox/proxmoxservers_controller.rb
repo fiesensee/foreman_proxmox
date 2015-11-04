@@ -25,7 +25,7 @@ module ForemanProxmox
     
     def update
       server = Proxmoxserver.find(params[:id])
-      server.ip = params[:id]
+      server.ip = params[:ip]
       server.username = params[:username]
       server.password = params[:password]
       server.save
