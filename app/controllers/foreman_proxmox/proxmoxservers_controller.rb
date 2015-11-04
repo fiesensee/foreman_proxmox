@@ -28,6 +28,8 @@ module ForemanProxmox
       server.ip = params[:id]
       server.username = params[:username]
       server.password = params[:password]
+      server.save
+      redirect_to '/proxmox'
     end
     
     def destroy
