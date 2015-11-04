@@ -2,7 +2,7 @@ module ForemanProxmox
   class ProxmoxserversController < ApplicationController
     
     def index
-      @proxmoxservers = Proxmoxserver.all
+      @proxmoxservers = Proxmoxserver.all.order(id: :asc)
     end
     
     def show
@@ -21,15 +21,6 @@ module ForemanProxmox
     
     def edit
       @proxmox = Proxmoxserver.find(params[:id])
-    end
-    
-    def update
-      server = Proxmoxserver.find(params[:id])
-      server.ip = params[:ip]
-      server.username = params[:username]
-      server.password = params[:password]
-      server.save
-      redirect_to '/proxmox'
     end
     
     def destroy
