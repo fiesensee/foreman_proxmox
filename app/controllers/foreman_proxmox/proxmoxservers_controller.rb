@@ -27,14 +27,15 @@ module ForemanProxmox
     end
     
     def destroy
+      super
     end
     
     def setcurrent
-      oldcurrent = Proxmoxserver.where("current = 'true'").first
-      if oldcurrent != nil then
-        oldcurrent.current = false
+      oldcurrent = Proxmoxserver.where("current = 'true'")
+      oldcurrent.each do |old|
+        old.current = false
+        old.save
       end
-      oldcurrent.save
       newcurrent = Proxmoxserver.find(params[:id])
       newcurrent.current= true
       if newcurrent.save then
