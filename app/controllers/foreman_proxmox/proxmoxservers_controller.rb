@@ -23,11 +23,11 @@ module ForemanProxmox
       @proxmox = Proxmoxserver.find(params[:id])
     end
     
-    def update
-      proxmox = Proxmoxserver.find(params[:id])
-      proxmox.update_attributes(params[:proxmoxserver])
-      proxmox.save
-    end
+    # def update
+    #   proxmox = Proxmoxserver.find(params[:id])
+    #   proxmox.update_attributes(params[:proxmoxserver])
+    #   proxmox.save
+    # end
     
     def destroy
       Proxmoxserver.find(params[:id]).delete
