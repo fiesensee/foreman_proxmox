@@ -16,6 +16,7 @@ module ForemanProxmox
     def check_ip_connectivity
       $LOG.error("checking connect")
       if @client == nil then setup_httpclient end
+        
       code_response = @client.get("https://#{self.ip}:8006/api2/json/access/ticket")
       $LOG.error(code_response)
       if code_response.code != 200 then
@@ -127,17 +128,17 @@ module ForemanProxmox
       end
       authenticate_client
       body= { :filename => "vm-#{vmid}-disk-0.qcow2", :format => "qcow2", :size => size, :vmid => vmid}
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/local/content",body,@header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/#{self.storage}/content",body,@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
     
-    def create_kvm(vmid, sockets, cores ,memory,mac)
+    def create_kvm(vmid, name, sockets, cores ,memory,mac)
       if !check_ip_connectivity then
         return nil
       end
       authenticate_client
-      body= { :vmid => vmid, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=vmbr1", :ide0 => "volume=local:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
+      body= { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
@@ -151,7 +152,7 @@ module ForemanProxmox
         return nil
       end
       find_node_for_vmid(vmid)
-      testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}",{},@header)
+      testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -161,7 +162,7 @@ module ForemanProxmox
         return nil
       end
       find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/start",{},@header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/start",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -171,7 +172,7 @@ module ForemanProxmox
         return nil
       end
       find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/stop",{},@header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/stop",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -181,7 +182,7 @@ module ForemanProxmox
         return nil
       end
       find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/proxmox/qemu/#{vmid}/status/reset",{},@header)
+      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/reset",{},@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end

@@ -9,6 +9,8 @@
             <td>Server ID</td>
             <td>Server IP</td>
             <td>Username</td>
+            <td>Storage Directory</td>
+            <td>Bridge</td>
             <td>Is Current?</td>
         </tr>
         <% @proxmoxservers.each do |server| %>
@@ -16,6 +18,8 @@
                 <td><%= server.id%></td>
                 <td><%= server.ip%></td>
                 <td><%= server.username%></td>
+                <td><%= server.storage %></td>
+                <td><%= server.bridge %></td>
                 <td>
                     <% if server.current == true then%>
                     <%= _('Yes') %>

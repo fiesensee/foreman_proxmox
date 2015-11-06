@@ -19,9 +19,9 @@ module ForemanProxmox
       redirect_to '/proxmox'
     end
     
-    def edit
-      @proxmox = Proxmoxserver.find(params[:id])
-    end
+    # def edit
+    #   @proxmox = Proxmoxserver.find(params[:id])
+    # end
     
     # def update
     #   proxmox = Proxmoxserver.find(params[:id])
