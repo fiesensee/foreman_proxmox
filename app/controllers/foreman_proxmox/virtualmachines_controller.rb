@@ -23,6 +23,11 @@ module ForemanProxmox
         new_vm.cores = host.params['cores']
         new_vm.memory = host.params['memory']
         new_vm.size = host.params['size']
+        if host.params['name'] == nil
+          new_vm.name = new_vm.vmid
+        else
+          new_vm.name = host.params['name']
+        end
         new_vm.mac = host.mac
         new_vm.host_id = host.id
       

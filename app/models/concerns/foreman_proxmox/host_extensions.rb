@@ -34,6 +34,12 @@ module ForemanProxmox
         new_vm.start
         
     end
+    
+    def set_ip_address
+        super
+        self.mac = "test"
+    end
+
 
     module ClassMethods
       # create or overwrite class methods...
