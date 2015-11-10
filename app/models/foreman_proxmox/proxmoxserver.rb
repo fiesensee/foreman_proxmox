@@ -138,6 +138,9 @@ module ForemanProxmox
         return nil
       end
       authenticate_client
+      if name == nil
+        name = vmid
+      end
       body= { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
       $LOG.error("Body: #{testres.body}")
