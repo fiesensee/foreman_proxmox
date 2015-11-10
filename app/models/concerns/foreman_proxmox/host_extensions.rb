@@ -38,6 +38,7 @@ module ForemanProxmox
     def set_ip_address
         super
         self.mac = "test"
+        $LOG.error("self.mac")
     end
 
 
