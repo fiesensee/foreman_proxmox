@@ -18,17 +18,15 @@ module ForemanProxmox
     end
     
     def create
-		$LOG = Logger.new("/tmp/maccie.log")
-		$LOG.error("Start mac #{self.mac} + start ip: #{self.ip}")
-		ip =  self.ip.split(".") 
-		mac = "09:0e:06:12:#{ip[2]}:#{ip[3]}"
-		$LOG.error("#{mac}")
-		self.mac = mac
-		self.primary_interface.mac = mac
-		self.provision_interface.mac = mac
-		self.primary_interface.save
-		$LOG.error(self.primary_interface.errors.full_messages)
-		$LOG.error("#{self.mac} + #{self.primary_interface.mac}")
+		#$LOG = Logger.new("/tmp/maccie.log")
+		#$LOG.error("Start mac #{self.mac} + start ip: #{self.ip}")
+		#ip =  self.ip.split(".") 
+		#mac = "09:0e:06:12:#{ip[2]}:#{ip[3]}"
+		#$LOG.error("#{mac}")
+		#self.mac = mac
+		#self.provision_interface.mac = mac
+		#self.provision_interface.save
+		#$LOG.error("#{self.mac} + #{self.provision_interface.mac}")
 		super
 		
 		new_vm = Virtualmachine.new
