@@ -41,7 +41,7 @@ module ForemanProxmox
       new_vm = Virtualmachine.where("host_id = '#{host.id}'").first
       
       new_vm.create_harddisk
-      new_vm.create_virtualmachine
+      new_vm.create_virtualmachine(host)
       new_vm.start
       
       redirect_to :back

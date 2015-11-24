@@ -7,9 +7,8 @@ module ForemanProxmox
       proxmoxserver.create_ide(self.vmid,self.size)
     end
     
-    def create_virtualmachine
+    def create_virtualmachine(host)
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      host = Host.find(self.vmid)
       proxmoxserver.create_kvm(self.vmid,self.name,self.sockets,self.cores,self.memory,self.mac,host)
     end
     
