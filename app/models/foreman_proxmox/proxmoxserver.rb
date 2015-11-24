@@ -86,6 +86,17 @@ module ForemanProxmox
       end
     end
     
+    def get_vm_attributes(host)
+      data = []
+      host.params.each do |param|
+        if(param.include "vm.")
+          parameter = param.split(".")
+          data = data.merge({parameter[1] => host.param})
+        end
+      end
+      return data
+    end
+    
     def get_next_free_vmid
       $LOG= Logger.new("/tmp/proxmox_debug.log")
       $LOG.error("start here")
@@ -133,7 +144,7 @@ module ForemanProxmox
       $LOG.error("Header: #{testres.header}")
     end
     
-    def create_kvm(vmid, name, sockets, cores ,memory,mac)
+    def create_kvm(vmid, name, sockets, cores, memory, mac, host)
       if !check_ip_connectivity then
         return nil
       end
@@ -141,7 +152,8 @@ module ForemanProxmox
       if name == nil
         name = vmid
       end
-      body= { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
+      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
+      body = body.merge(get_vm_attributes(host))
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
