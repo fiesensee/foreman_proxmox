@@ -45,7 +45,7 @@ module ForemanProxmox
         new_vm.save
         
         new_vm.create_harddisk
-        new_vm.create_virtualmachine
+        new_vm.create_virtualmachine(self)
         new_vm.start
         
     end

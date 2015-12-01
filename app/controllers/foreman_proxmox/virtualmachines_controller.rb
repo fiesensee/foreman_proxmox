@@ -2,50 +2,50 @@ require 'logger'
 module ForemanProxmox
   class VirtualmachinesController < ApplicationController
     
-    def create_vm
-      host = Host.find(params[:id])
-      $LOG= Logger.new("/tmp/proxmox_debug.log")
+    # def create_vm
+    #   host = Host.find(params[:id])
+    #   $LOG= Logger.new("/tmp/proxmox_debug.log")
       
-      if Virtualmachine.where("host_id = '#{host.id}'").first == nil then
-        new_vm = Virtualmachine.new
+    #   if Virtualmachine.where("host_id = '#{host.id}'").first == nil then
+    #     new_vm = Virtualmachine.new
         
-        $LOG.error("creating vm")
+    #     $LOG.error("creating vm")
         
-        if host.params['vmid'] == nil then
-          $LOG.error("searching vmid")
-          new_vm.get_free_vmid
-        else
-          new_vm.vmid = host.params['vmid']
-        end
+    #     if host.params['vmid'] == nil then
+    #       $LOG.error("searching vmid")
+    #       new_vm.get_free_vmid
+    #     else
+    #       new_vm.vmid = host.params['vmid']
+    #     end
         
-        $LOG.error(new_vm.vmid)
-        new_vm.sockets = host.params['sockets']
-        new_vm.cores = host.params['cores']
-        new_vm.memory = host.params['memory']
-        new_vm.size = host.params['size']
-        if host.params['name'] == nil
-          new_vm.name = new_vm.vmid
-        else
-          new_vm.name = host.params['name']
-        end
-        new_vm.mac = host.mac
-        new_vm.host_id = host.id
+    #     $LOG.error(new_vm.vmid)
+    #     new_vm.sockets = host.params['sockets']
+    #     new_vm.cores = host.params['cores']
+    #     new_vm.memory = host.params['memory']
+    #     new_vm.size = host.params['size']
+    #     if host.params['name'] == nil
+    #       new_vm.name = new_vm.vmid
+    #     else
+    #       new_vm.name = host.params['name']
+    #     end
+    #     new_vm.mac = host.mac
+    #     new_vm.host_id = host.id
       
-        if new_vm.save then
-          flash[:notice] = "VM saved in DB"
-        else
-          flash[:error] = _('Fail')
-        end
-      end
+    #     if new_vm.save then
+    #       flash[:notice] = "VM saved in DB"
+    #     else
+    #       flash[:error] = _('Fail')
+    #     end
+    #   end
       
-      new_vm = Virtualmachine.where("host_id = '#{host.id}'").first
+    #   new_vm = Virtualmachine.where("host_id = '#{host.id}'").first
       
-      new_vm.create_harddisk
-      new_vm.create_virtualmachine(host)
-      new_vm.start
+    #   new_vm.create_harddisk
+    #   new_vm.create_virtualmachine(host)
+    #   new_vm.start
       
-      redirect_to :back
-    end
+    #   redirect_to :back
+    # end
     
     def start_vm
       vm = Virtualmachine.where("host_id = '#{params[:id]}'").first
