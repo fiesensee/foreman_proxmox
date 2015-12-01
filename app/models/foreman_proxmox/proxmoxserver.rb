@@ -87,7 +87,7 @@ module ForemanProxmox
     end
     
     def get_vm_attributes(host)
-      data = []
+      data = {}
       host.params.each do |param|
         if(param.include? "vm.")
           parameter = param.split(".")
