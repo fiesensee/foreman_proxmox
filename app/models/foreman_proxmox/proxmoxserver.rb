@@ -143,7 +143,7 @@ module ForemanProxmox
         return nil
       end
       authenticate_client
-      body= { :filename => "vm-#{vmid}-disk-0.qcow2", :format => "qcow2", :size => size, :vmid => vmid}
+      body= { :filename => "vm-#{vmid}-disk-0.raw", :format => "raw", :size => size, :vmid => vmid}
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/#{self.storage}/content",body,@header)
       $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
@@ -158,7 +158,7 @@ module ForemanProxmox
       if name == nil
         name = vmid
       end
-      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
+      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.raw,media=disk"}
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
