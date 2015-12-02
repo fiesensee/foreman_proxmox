@@ -145,7 +145,7 @@ module ForemanProxmox
       authenticate_client
       body= { :filename => "vm-#{vmid}-disk-0.qcow2", :format => "qcow2", :size => size, :vmid => vmid}
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/#{self.storage}/content",body,@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -160,9 +160,9 @@ module ForemanProxmox
       end
       body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.qcow2,media=disk"}
       body = body.merge(get_vm_attributes(host))
-      $Log.error(body)
+      $LOG.error(body)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -176,7 +176,7 @@ module ForemanProxmox
       end
       find_node_for_vmid(vmid)
       testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}",{},@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -187,7 +187,7 @@ module ForemanProxmox
       end
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/start",{},@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -198,7 +198,7 @@ module ForemanProxmox
       end
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/stop",{},@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -209,7 +209,7 @@ module ForemanProxmox
       end
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/reset",{},@header)
-      $Log.error(testres.code)
+      $LOG.error(testres.code)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
