@@ -158,7 +158,7 @@ module ForemanProxmox
       if name == nil
         name = vmid
       end
-      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.raw,media=disk"}
+      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:vm-#{vmid}-disk-0.raw,media=disk"}
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
