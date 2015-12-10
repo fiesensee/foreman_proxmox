@@ -44,10 +44,10 @@ module ForemanProxmox
       token= auth["data"]["CSRFPreventionToken"]
       @header= {:CSRFPreventionToken => token}
       $LOG.error("#{ticket} #{token}")
-      cookie_ticket= WebAgent::Cookie.new
-      cookie_ticket.name= 'PVEAuthCookie'
-      cookie_ticket.value= ticket
-      cookie_ticket.url= url
+      cookie_ticket= WebAgent::Cookie.new('PVEAuthCookie', ticket, :url => url)
+      #cookie_ticket.name= 'PVEAuthCookie'
+      #cookie_ticket.value= ticket
+      #cookie_ticket.url= url
       @client.cookie_manager.add(cookie_ticket)
       $LOG.error("authenticated")
     end
