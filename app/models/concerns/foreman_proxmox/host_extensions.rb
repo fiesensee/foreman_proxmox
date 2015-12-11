@@ -18,15 +18,7 @@ module ForemanProxmox
     end
     
     def create
-		#$LOG = Logger.new("/tmp/maccie.log")
-		#$LOG.error("Start mac #{self.mac} + start ip: #{self.ip}")
-		#ip =  self.ip.split(".") 
-		#mac = "09:0e:06:12:#{ip[2]}:#{ip[3]}"
-		#$LOG.error("#{mac}")
-		#self.mac = mac
-		#self.provision_interface.mac = mac
-		#self.provision_interface.save
-		#$LOG.error("#{self.mac} + #{self.provision_interface.mac}")
+
 		super
 		
 		new_vm = Virtualmachine.new
@@ -41,7 +33,7 @@ module ForemanProxmox
           new_vm.vmid = self.params['vmid']
         end
         if self.params['name'] == nil
-          name = self.fqdn
+          name = self.name
         else
           name = self.params['name']
         end
