@@ -18,7 +18,7 @@ module ForemanProxmox
     end
     
     def create
-
+      
 		super
 		
 		new_vm = Virtualmachine.new
@@ -33,9 +33,9 @@ module ForemanProxmox
           new_vm.vmid = self.params['vmid']
         end
         if self.params['name'] == nil
-          name = self.name
+          new_vm.name = self.shortname
         else
-          name = self.params['name']
+          new_vm.name = self.params['name']
         end
         new_vm.mac = self.mac
         new_vm.host_id = self.id
