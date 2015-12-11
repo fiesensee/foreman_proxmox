@@ -36,9 +36,14 @@ module ForemanProxmox
         new_vm.memory = self.params['memory']
         new_vm.size = self.params['size']
         if self.params['vmid'] == nil then
-			new_vm.get_free_vmid
-		else
+			    new_vm.get_free_vmid
+		    else
           new_vm.vmid = self.params['vmid']
+        end
+        if self.params['name'] == nil
+          name = self.shortname
+        else
+          name = self.params['name']
         end
         new_vm.mac = self.mac
         new_vm.host_id = self.id

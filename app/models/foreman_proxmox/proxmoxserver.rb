@@ -155,9 +155,6 @@ module ForemanProxmox
         return nil
       end
       authenticate_client
-      if name == nil
-        name = vmid
-      end
       body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:vm-#{vmid}-disk-0.raw,media=disk"}
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
