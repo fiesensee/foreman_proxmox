@@ -145,7 +145,7 @@ module ForemanProxmox
       authenticate_client
       body= { :filename => "vm-#{vmid}-disk-0.raw", :format => "raw", :size => size, :vmid => vmid}
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/#{self.storage}/content",body,@header)
-      $LOG.error(testres.code)
+      $LOG.error(testres.status)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
     end
@@ -159,9 +159,14 @@ module ForemanProxmox
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
-      $LOG.error(testres.code)
+      $LOG.error(testres.status)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
+      if testres.status != 200
+        return false
+      else
+        return true
+      end
     end
     
     def edit_kvm(vmid)
