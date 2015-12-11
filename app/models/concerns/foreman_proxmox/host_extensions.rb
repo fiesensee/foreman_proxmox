@@ -45,7 +45,11 @@ module ForemanProxmox
         if new_vm.create_virtualmachine(self)
           if new_vm.create_harddisk
             new_vm.start
+          else
+            flash[:alert] = "Error in disk creation"
           end
+        else
+          flash[:alert] = "Error in VM creation"
         end
         
         
