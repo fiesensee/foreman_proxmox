@@ -148,6 +148,11 @@ module ForemanProxmox
       $LOG.error(testres.status)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
+      if testres.status == 200
+        return true
+      else
+        return false
+      end
     end
     
     def create_kvm(vmid, name, sockets, cores, memory, mac, host)

@@ -42,9 +42,12 @@ module ForemanProxmox
         new_vm.save
         
         
-        new_vm.create_virtualmachine(self)
-        new_vm.create_harddisk
-        new_vm.start
+        if new_vm.create_virtualmachine(self)
+          if new_vm.create_harddisk
+            new_vm.start
+          end
+        end
+        
         
     end
     
