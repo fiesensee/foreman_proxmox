@@ -41,7 +41,7 @@ module ForemanProxmox
         new_vm.host_id = self.id
         new_vm.save
         
-        new_vm.create_harddisk
+        #new_vm.create_harddisk
         new_vm.create_virtualmachine(self)
         new_vm.start
         
