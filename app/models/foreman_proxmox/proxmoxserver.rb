@@ -18,7 +18,7 @@ module ForemanProxmox
       if @client == nil then setup_httpclient end
         
       code_response = @client.get("https://#{self.ip}:8006/api2/json/access/ticket")
-      $LOG.error(code_response)
+      #$LOG.error(code_response)
       if code_response.code != 200 then
         $LOG.error("connection fail")
         flash[:error] = "Proxmoxserver seems down, try again or change Server"
@@ -38,12 +38,12 @@ module ForemanProxmox
       url= URI.parse(domain)
       credentials= {:username => "#{self.username}@pam", :password => self.password}
       auth_response= @client.post("https://#{self.ip}:8006/api2/json/access/ticket", credentials)
-      $LOG.error(auth_response.body)
+      #$LOG.error(auth_response.body)
       auth= JSON.parse(auth_response.body)
       ticket= auth["data"]["ticket"]
       token= auth["data"]["CSRFPreventionToken"]
       @header= {:CSRFPreventionToken => token}
-      $LOG.error("#{ticket} #{token}")
+      #$LOG.error("#{ticket} #{token}")
       cookie_ticket= WebAgent::Cookie.new('PVEAuthCookie', ticket, :url => url)
       #cookie_ticket.name= 'PVEAuthCookie'
       #cookie_ticket.value= ticket
@@ -90,11 +90,11 @@ module ForemanProxmox
       data = {}
       $LOG.error("VmAttr")	
       host.params.each do |param|
-	$LOG.error(param)
+	      #$LOG.error(param)
         if(param[0].include? "vm.")
-	  $LOG.error(param)
+	        #$LOG.error(param)
           parameter = param[0].split(".")
-	  $LOG.error(parameter[1])
+	        #$LOG.error(parameter[1])
           data = data.merge({parameter[1] => param[1]})
         end
       end
@@ -104,27 +104,27 @@ module ForemanProxmox
     
     def get_next_free_vmid
       $LOG= Logger.new("/tmp/proxmox_debug.log")
-      $LOG.error("start here")
+      #$LOG.error("start here")
       authenticate_client
       nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
-      $LOG.error(nodes)
+      #$LOG.error(nodes)
       current_node_id = 0
       highest_vmid = 0
       current_node = nodes["data"][current_node_id]
-      $LOG.error(current_node)
+      #$LOG.error(current_node)
       while current_node != nil 
         node_name = nodes["data"][current_node_id]["node"]
-        $LOG.error(node_name)
+        #$LOG.error(node_name)
         current_vm_id = 0
         vms_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{node_name}/qemu")
         vms = JSON.parse(vms_response.body)
-        $LOG.error(vms)
+        #$LOG.error(vms)
         current_vm = vms["data"][current_vm_id]
         while current_vm != nil do
           if vms["data"][current_vm_id]["vmid"].to_i > highest_vmid 
             highest_vmid = vms["data"][current_vm_id]["vmid"].to_i
-            $LOG.error(highest_vmid)
+            #$LOG.error(highest_vmid)
           end
           current_vm_id+=1
           current_vm = vms["data"][current_vm_id]
@@ -132,7 +132,7 @@ module ForemanProxmox
         current_node_id+=1
         current_node = nodes["data"][current_node_id]
       end
-      $LOG.error(highest_vmid+1).to_s
+      #$LOG.error(highest_vmid+1).to_s
       return highest_vmid+1
     end
     
@@ -162,10 +162,10 @@ module ForemanProxmox
       $LOG.error(testres.status)
       $LOG.error("Body: #{testres.body}")
       $LOG.error("Header: #{testres.header}")
-      if testres.status != 200
-        return false
-      else
+      if testres.status == 200
         return true
+      else
+        return false
       end
     end
     
