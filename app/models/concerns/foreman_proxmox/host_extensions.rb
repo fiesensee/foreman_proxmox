@@ -41,7 +41,7 @@ module ForemanProxmox
           new_vm.vmid = self.params['vmid']
         end
         if self.params['name'] == nil
-          name = self.shortname
+          name = self.fqdn
         else
           name = self.params['name']
         end
