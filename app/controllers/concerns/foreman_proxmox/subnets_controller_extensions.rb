@@ -1,9 +1,6 @@
 require 'logger'
 module ForemanProxmox
-  module SubnetsControllerExtensions
-    extend ActiveSupport::Concern
-    include do
-    end
+  class SubnetsControllerExtensions < ::SubnetsController
     
     def freeip
     $LOG = Logger.new("/tmp/mac.log")
@@ -28,6 +25,4 @@ module ForemanProxmox
     end
     
   end
-    module ClassMethods
-    end
 end
