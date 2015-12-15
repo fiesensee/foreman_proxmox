@@ -66,7 +66,6 @@ module ForemanProxmox
       begin
         Host::Managed.send(:include, ForemanProxmox::HostExtensions)
         HostsHelper.send(:include, ForemanProxmox::HostsHelperExtensions)
-        HostsController.send(:include, ForemanProxmox::HostsControllerExtensions)
         SubnetsController.send(:include, ForemanProxmox::SubnetsControllerExtensions)
       rescue => e
         Rails.logger.warn "ForemanProxmox: skipping engine hook (#{e})"
