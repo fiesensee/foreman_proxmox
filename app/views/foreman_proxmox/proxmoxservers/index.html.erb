@@ -28,7 +28,7 @@
                     <% end %>
                 </td>
                 <td>
-                    <%= button_to("Set Current", {:action => setcurrent_path, :id => server.id}) %>
+                    <%= button_to("Set Current", {:action => setcurrent_path, :id => server.id}, :method => :get) %>
                 </td>
             </tr>
         <% end %>
