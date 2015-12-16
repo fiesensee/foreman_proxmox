@@ -29,8 +29,8 @@
                 </td>
                 <td>
                     <%= action_buttons(
-                        button_to "Set Current", set_current_path(:id => server.id),
-                        button_to "Delete", destroy_path(:id => server.id)
+                        button_to ("Set Current", set_current_path(:id => server.id)),
+                        button_to ("Delete", destroy_path(:id => server.id))
                     ) %>
                 </td>
             </tr>
