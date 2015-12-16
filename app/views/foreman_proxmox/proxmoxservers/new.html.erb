@@ -10,10 +10,10 @@
     <br>
     <%= f.label :storage %>
     <%= f.text_field :storage %>
-    <%= f.radio_button(:storagetype, 'directory') %>
-    <%= f.label(:storagetype 'Directory', :value => 'directory') %>
-    <%= f.radio_button(:storagetype, 'lvm') %>
-    <%= f.label(:storagetype 'LVM', :value => 'lvm') %>
+    <%= f.radio_button :storagetype, 'directory' %>
+    <%= f.label :storagetype, 'Directory', :value => 'directory' %>
+    <%= f.radio_button :storagetype, 'lvm' %>
+    <%= f.label :storagetype, 'LVM', :value => 'lvm' %>
     <br>
     <%= f.label :bridge %>
     <%= f.text_field :bridge %>
