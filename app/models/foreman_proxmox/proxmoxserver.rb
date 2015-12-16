@@ -160,7 +160,12 @@ module ForemanProxmox
         return nil
       end
       authenticate_client
-      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}", :ide0 => "volume=#{self.storage}:vm-#{vmid}-disk-0.raw,media=disk"}
+      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}"}
+      if self.storagetype == 'lvm'
+        body = body.merge(:ide0 => "volume=#{self.storage}:vm-#{vmid}-disk-0.raw,media=disk")
+      else
+        body = body.merge(:ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.raw,media=disk")
+      end
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)

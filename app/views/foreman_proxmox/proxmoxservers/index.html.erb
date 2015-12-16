@@ -10,6 +10,7 @@
             <td>Server IP</td>
             <td>Username</td>
             <td>Storage Directory</td>
+            <td>Storage Type</td>
             <td>Bridge</td>
             <td>Is Current?</td>
         </tr>
@@ -19,6 +20,7 @@
                 <td><%= server.ip%></td>
                 <td><%= server.username%></td>
                 <td><%= server.storage %></td>
+                <td><%= server.storagetype %</td>
                 <td><%= server.bridge %></td>
                 <td>
                     <% if server.current == true then%>
