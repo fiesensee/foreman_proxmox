@@ -28,10 +28,7 @@
                     <% end %>
                 </td>
                 <td>
-                    <%= action_buttons(
-                        link_to(_('Set Current'),setcurrent_path(:id => server.id)),
-                        link_to(_('Delete'),destroy_path(:id => server.id))
-                    ) %>
+                    <%= button_to("Set Current", {:action => setcurrent_path(:id => server.id)}, :method => :get) %>
                 </td>
             </tr>
         <% end %>
