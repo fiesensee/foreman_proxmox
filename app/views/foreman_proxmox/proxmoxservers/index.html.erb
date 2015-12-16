@@ -28,7 +28,7 @@
                     <% end %>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary"><%= link_to(_('Set Current'),setcurrent_path(:id => server.id)) %></button>
+                    <%= button_to("Set Current", {:action => setcurrent_path, :id => server.id}) %>
                 </td>
             </tr>
         <% end %>
