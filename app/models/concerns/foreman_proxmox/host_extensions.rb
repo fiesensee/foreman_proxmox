@@ -18,7 +18,7 @@ module ForemanProxmox
     end
     
     def create
-      
+    $LOG = Logger.new('/tmp/error.log')  
 		super
 		
 		new_vm = Virtualmachine.new
@@ -46,10 +46,10 @@ module ForemanProxmox
           if new_vm.create_harddisk
             new_vm.start
           else
-            flash[:alert] = "Error in disk creation"
+            $LOG.error("Error in disk creation")
           end
         else
-          flash[:alert] = "Error in VM creation"
+          $LOG.error("Error in VM creation")
         end
         
         
