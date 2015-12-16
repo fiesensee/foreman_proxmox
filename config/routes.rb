@@ -5,7 +5,7 @@ end
 
 ForemanProxmox::Engine.routes.draw do
     
-    get '/proxmoxservers/:id/setcurrent' => 'foreman_proxmox/proxmoxservers#setcurrent', as: 'setcurrent'
+    get 'proxmoxservers/:id/setcurrent' => 'proxmoxservers#setcurrent', as: 'setcurrent'
     get 'proxmoxservers/:id/destroy' => 'proxmoxservers#destroy', as: 'destroy'
     resources :proxmoxservers
          
