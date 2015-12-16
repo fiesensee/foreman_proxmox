@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib,locale}/**/*'] + ['LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
   
-  s.add_dependency 'httpclient', '2.6.0.1'
+  s.add_dependency 'httpclient'
   s.add_dependency 'json'
   
   s.add_development_dependency 'rubocop'
