@@ -5,6 +5,7 @@ class CreateForemanProxmoxProxmoxservers < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.string :storage
+      t.string :storagetype
       t.string :bridge
       t.boolean :current
 
