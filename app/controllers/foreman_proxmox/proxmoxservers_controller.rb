@@ -34,12 +34,6 @@ module ForemanProxmox
     # end
     
     def destroy
-      proxmox = Proxmoxserver.find(params[:id])
-      if(proxmox.current == true)
-        new_current = Proxmoxserver.all.last
-        new_current.current = true
-        new_current.save
-      end
       proxmox.delete  
       redirect_to '/proxmox'
     end
