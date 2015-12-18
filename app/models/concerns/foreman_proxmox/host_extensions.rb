@@ -42,7 +42,7 @@ module ForemanProxmox
         new_vm.save
         
         
-        if new_vm.create_virtualmachine(self)
+        if new_vm.create_harddiskcreate_virtualmachine(self)
           if new_vm.create_harddisk
             new_vm.start
           else

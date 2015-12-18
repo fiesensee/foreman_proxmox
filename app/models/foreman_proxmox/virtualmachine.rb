@@ -60,7 +60,11 @@ module ForemanProxmox
       proxmoxserver = Proxmoxserver.where(:current => true).first
       if self.status == "Error"
         $LOG.error("error: #{self.errormsg}")
-        return self.errormsg
+        if self.errormsg != nil
+          return self.errormsg
+        else
+          return "Check error log"
+        end
       else
         $LOG.error("nominal")
         self.status = proxmoxserver.get_vm_status(self.vmid)
