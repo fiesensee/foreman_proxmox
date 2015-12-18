@@ -13,20 +13,17 @@ module ForemanProxmox
       
       
       title_actions(
-          
-          
-          
-          if Virtualmachine.where("host_id = '#{@host.id}'").first != nil
-            vm = Virtualmachine.where("host_id = '#{@host.id}'").first
-            content_tag(:p, "Status:#{vm.get_status}")
-          end,
             button_group(
               select_action_button(_('Power Control'),{},
               display_proxmox_if_authorized(_('Start VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'start_vm', :id => @host.id}, :class => 'btn'),
               display_proxmox_if_authorized(_('Stop VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'stop_vm', :id => @host.id}, :class => 'btn'),
               display_proxmox_if_authorized(_('Reboot VM'), {:controller => 'foreman_proxmox/virtualmachines', :action => 'reboot_vm', :id => @host.id}, :class => 'btn')
               )
-            )
+            ),
+            if Virtualmachine.where("host_id = '#{@host.id}'").first != nil
+              vm = Virtualmachine.where("host_id = '#{@host.id}'").first
+              content_tag(:p, "Status:#{vm.get_status}")
+            end
       )
       host_title_actions_without_proxmox(*args)
     end
