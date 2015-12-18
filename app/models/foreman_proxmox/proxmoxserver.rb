@@ -184,7 +184,7 @@ module ForemanProxmox
     
     def get_vm_status(vmid)
       authenticate_client
-      status_response = @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/current")
+      status_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/current")
       status_body = JSON.parse(status_response.body)
       return status_body["data"]["status"]
     end
