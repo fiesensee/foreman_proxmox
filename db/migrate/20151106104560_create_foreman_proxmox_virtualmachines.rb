@@ -8,6 +8,8 @@ class CreateForemanProxmoxVirtualmachines < ActiveRecord::Migration
       t.string :memory
       t.string :size
       t.string :mac
+      t.string :status
+      t.string :errormsg
       t.belongs_to :host
       
       t.timestamps null: false

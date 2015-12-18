@@ -46,10 +46,10 @@ module ForemanProxmox
           if new_vm.create_harddisk
             new_vm.start
           else
-            $LOG.error("Error in disk creation")
+            new_vm.status = "Error"
           end
         else
-          $LOG.error("Error in VM creation")
+          new_vm.status = "Error"
         end
         
         

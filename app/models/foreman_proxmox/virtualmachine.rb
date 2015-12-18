@@ -4,13 +4,23 @@ module ForemanProxmox
     
     def create_harddisk
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      proxmoxserver.create_ide(self.vmid,self.size)
+      create_response = proxmoxserver.create_ide(self.vmid,self.size)
+      if create_response  == true
+        return true
+      else
+        self.errormsg = create_response
+        return false
+      end
     end
     
     def create_virtualmachine(host)
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      if proxmoxserver.create_kvm(self.vmid,self.name,self.sockets,self.cores,self.memory,self.mac,host)
+      create_response = proxmoxserver.create_kvm(self.vmid,self.name,self.sockets,self.cores,self.memory,self.mac,host)
+      if create_response  == true
         return true
+      else
+        self.errormsg = create_response
+        return false
       end
     end
     
@@ -39,6 +49,16 @@ module ForemanProxmox
     def get_free_vmid
       proxmoxserver = Proxmoxserver.where(:current => true).first
       self.vmid = proxmoxserver.get_next_free_vmid
+    end
+    
+    def get_status
+      proxmoxserver = Proxmoxserver.where(:current => true).first
+      if self.status = "Error"
+          return self.errormsg
+        else
+          self.status = proxmoxserver.get_vm_status(self.vmid)
+        return self.status
+      end
     end
   end
 end

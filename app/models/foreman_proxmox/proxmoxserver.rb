@@ -151,7 +151,7 @@ module ForemanProxmox
       if testres.status == 200
         return true
       else
-        return false
+        return testres.body
       end
     end
     
@@ -175,11 +175,17 @@ module ForemanProxmox
       if testres.status == 200
         return true
       else
-        return false
+        return testres.body
       end
     end
     
     def edit_kvm(vmid)
+    end
+    
+    def get_vm_status(vmid)
+      status_response = @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/current")
+      status_body = JSON.parse(status_response.body)
+      return status_body["data"]["status"]
     end
     
     def delete_kvm(vmid)

@@ -9,11 +9,16 @@ module ForemanProxmox
 
     
     def host_title_actions_with_proxmox(*args)
+      
+      
+      
       title_actions(
+          
+          
+          
           if Virtualmachine.where("host_id = '#{@host.id}'").first != nil
-          button_group(
-              display_proxmox_if_authorized(_("VM details"), {:controller => 'foreman_proxmox/virtualmachines', :action => 'show', :id => @host.id}, :class => 'btn')
-          )
+            vm = Virtualmachine.where("host_id = '#{@host.id}'").first
+            content_tag(:p, "Status:#{vm.get_status}")
           end,
             button_group(
               select_action_button(_('Power Control'),{},
