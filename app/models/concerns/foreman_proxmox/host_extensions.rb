@@ -51,6 +51,7 @@ module ForemanProxmox
         else
           new_vm.status = "Error"
         end
+        new_vm.save
         
         
     end

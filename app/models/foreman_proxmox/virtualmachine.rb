@@ -9,6 +9,7 @@ module ForemanProxmox
         return true
       else
         self.errormsg = create_response
+        self.sav
         return false
       end
     end
@@ -20,6 +21,7 @@ module ForemanProxmox
         return true
       else
         self.errormsg = create_response
+        self.save
         return false
       end
     end
@@ -57,6 +59,7 @@ module ForemanProxmox
           return self.errormsg
         else
           self.status = proxmoxserver.get_vm_status(self.vmid)
+          self.save
         return self.status
       end
     end
