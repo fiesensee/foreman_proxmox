@@ -15,7 +15,11 @@ module ForemanProxmox
     end
     
     def create
-      Proxmoxserver.create(params[:proxmoxserver])
+      new_proxmox = Proxmoxserver.create(params[:proxmoxserver])
+      if(Proxmoxserver.all.size == 1)
+        new_proxmox.current = true
+        new_proxmox.save
+      end
       redirect_to '/proxmox'
     end
     
