@@ -18,8 +18,12 @@ module ForemanProxmox
       new_proxmox = Proxmoxserver.create(params[:proxmoxserver])
       if(Proxmoxserver.all.size == 1)
         new_proxmox.current = true
-        new_proxmox.save
       end
+      if(new_proxmox.username.include? "@pam")
+        new_proxmox.username.split("@")
+        new_proxmox.username = self.username[0]
+      end
+      new_proxmox.save
       redirect_to '/proxmox'
     end
     
