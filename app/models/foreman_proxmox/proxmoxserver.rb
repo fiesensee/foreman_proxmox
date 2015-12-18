@@ -151,7 +151,11 @@ module ForemanProxmox
       if testres.status == 200
         return true
       else
-        return testres.header.reason_phrase
+        if error["data"]["errors"] == nil
+          return testres.header.reason_phrase
+        else
+          return error["data"]["errors"]
+        end
       end
     end
     
@@ -175,7 +179,12 @@ module ForemanProxmox
       if testres.status == 200
         return true
       else
-        return testres.header.reason_phrase
+        error = JSON.parse(testres.body)
+        if error["data"]["errors"] == nil
+          return testres.header.reason_phrase
+        else
+          return error["data"]["errors"]
+        end
       end
     end
     
