@@ -183,6 +183,7 @@ module ForemanProxmox
     end
     
     def get_vm_status(vmid)
+      authenticate_client
       status_response = @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/current")
       status_body = JSON.parse(status_response.body)
       return status_body["data"]["status"]
@@ -192,6 +193,7 @@ module ForemanProxmox
       if !check_ip_connectivity then
         return nil
       end
+      authenticate_client
       find_node_for_vmid(vmid)
       testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}",{},@header)
       $LOG.error(testres.code)
@@ -203,6 +205,7 @@ module ForemanProxmox
       if !check_ip_connectivity then
         return nil
       end
+      authenticate_client
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/start",{},@header)
       $LOG.error(testres.code)
@@ -214,6 +217,7 @@ module ForemanProxmox
       if !check_ip_connectivity then
         return nil
       end
+      authenticate_client
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/stop",{},@header)
       $LOG.error(testres.code)
@@ -225,6 +229,7 @@ module ForemanProxmox
       if !check_ip_connectivity then
         return nil
       end
+      authenticate_client
       find_node_for_vmid(vmid)
       testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/reset",{},@header)
       $LOG.error(testres.code)
