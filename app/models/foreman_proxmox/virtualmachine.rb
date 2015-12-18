@@ -58,7 +58,7 @@ module ForemanProxmox
       $LOG = Logger.new("/tmp/status.log")
       $LOG.error("getting status")
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      if self.status = "Error"
+      if self.status == "Error"
         $LOG.error("error: #{self.errormsg}")
         return self.errormsg
       else
