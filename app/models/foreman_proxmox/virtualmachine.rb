@@ -1,3 +1,4 @@
+require 'logger'
 module ForemanProxmox
   class Virtualmachine < ActiveRecord::Base
     belongs_to :host
@@ -9,7 +10,7 @@ module ForemanProxmox
         return true
       else
         self.errormsg = create_response
-        self.sav
+        self.save
         return false
       end
     end
@@ -54,12 +55,16 @@ module ForemanProxmox
     end
     
     def get_status
+      $LOG = Logger.new("/tmp/status.log")
+      $LOG.error("getting status")
       proxmoxserver = Proxmoxserver.where(:current => true).first
       if self.status = "Error"
-          return self.errormsg
-        else
-          self.status = proxmoxserver.get_vm_status(self.vmid)
-          self.save
+        $LOG.error("error: #{self.errormsg}")
+        return self.errormsg
+      else
+        $LOG.error("nominal")
+        self.status = proxmoxserver.get_vm_status(self.vmid)
+        self.save
         return self.status
       end
     end
