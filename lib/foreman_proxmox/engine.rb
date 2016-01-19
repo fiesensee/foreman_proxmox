@@ -36,7 +36,7 @@ module ForemanProxmox
         #add menu entry
         menu :top_menu,
             :url_hash => { :controller => :proxmoxservers, :action => :index },
-            :caption => 'ForemanProxmox',
+            :caption => N_('ForemanProxmox'),
             :parent => :hosts_menu,
             :after => :hosts
 
