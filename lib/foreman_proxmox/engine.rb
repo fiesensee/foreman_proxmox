@@ -34,14 +34,14 @@ module ForemanProxmox
         role 'ForemanProxmox', [:view_foreman_proxmox, :manage_proxmoxserver, :proxmoxservers_crud, :manage_vm]
 
         #add menu entry
-        menu :top_menu, :template,
-            url_hash: { controller: :'foreman_proxmox/proxmoxservers', action: :index },
-            caption: 'ForemanProxmox',
-            parent: :hosts_menu,
-            after: :hosts
+        menu :top_menu,
+            :url_hash => { :controller => :'foreman_proxmox/proxmoxservers', :action => :index },
+            :caption => 'ForemanProxmox',
+            :parent => :hosts_menu,
+            :after => :hosts
 
         # add dashboard widget
-        # widget 'foreman_proxmox_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
+        widget 'foreman_proxmox_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
       end
     end
 
