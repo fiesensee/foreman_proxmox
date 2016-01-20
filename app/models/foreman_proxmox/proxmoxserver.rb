@@ -14,7 +14,6 @@ module ForemanProxmox
     def check_ip_connectivity
       $LOG.error("checking connect")
       if @client == nil then setup_httpclient end
-        
       code_response = @client.get("https://#{self.ip}:8006/api2/json/access/ticket")
       #$LOG.error(code_response)
       if code_response.code != 200 then
@@ -28,6 +27,9 @@ module ForemanProxmox
     end
     
     def authenticate_client
+      if @client == nil
+        setup_httpclient
+  
       $LOG.error("authenticating")
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
