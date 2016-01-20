@@ -5,7 +5,7 @@ module ForemanProxmox
     
     def create_harddisk
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      create_response = proxmoxserver.create_ide(self.vmid,self.size)
+      create_response = proxmoxserver.create_ide(self)
       if create_response  == true
         return true
       else
@@ -17,7 +17,7 @@ module ForemanProxmox
     
     def create_virtualmachine(host)
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      create_response = proxmoxserver.create_kvm(self.vmid,self.name,self.sockets,self.cores,self.memory,self.mac,host)
+      create_response = proxmoxserver.create_kvm(self,host)
       if create_response  == true
         return true
       else
@@ -29,23 +29,23 @@ module ForemanProxmox
     
     def start
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      proxmoxserver.start_kvm(self.vmid)
+      proxmoxserver.start_kvm(self)
     end
     
     def stop
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      proxmoxserver.stop_kvm(self.vmid)
+      proxmoxserver.stop_kvm(self)
     end
     
     def reboot
       proxmoxserver = Proxmoxserver.where(:current => true).first
-      proxmoxserver.reboot_kvm(self.vmid)
+      proxmoxserver.reboot_kvm(self)
     end
     
     def delete_virtualmachine
       proxmoxserver = Proxmoxserver.where(:current => true).first
       self.stop
-      proxmoxserver.delete_kvm(self.vmid)
+      proxmoxserver.delete_kvm(self)
       self.destroy
     end
     
@@ -67,10 +67,23 @@ module ForemanProxmox
         end
       else
         $LOG.error("nominal")
-        self.status = proxmoxserver.get_vm_status(self.vmid)
+        self.status = proxmoxserver.get_vm_status(self)
         self.save
         return self.status
       end
+    end
+    
+    def setNode(node)
+      proxmoxserver = Proxmoxserver.where(:current => true).first
+      if node == nil
+        self.node = proxmoxserver.get_first_node_in_cluster
+      elseif !proxmoxserver.validateNode(node)
+        return false
+      else
+        self.node = node
+      end
+      self.save
+      return true
     end
   end
 end

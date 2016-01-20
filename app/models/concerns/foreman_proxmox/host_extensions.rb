@@ -41,15 +41,19 @@ module ForemanProxmox
         new_vm.host_id = self.id
         new_vm.save
         
-        
-        if new_vm.create_virtualmachine(self)
-          if new_vm.create_harddisk
-            new_vm.start
+        if new_vm.setNode(self.params['node'])
+          if new_vm.create_virtualmachine(self)
+            if new_vm.create_harddisk
+              new_vm.start
+            else
+              new_vm.status = "Error"
+            end
           else
             new_vm.status = "Error"
           end
         else
           new_vm.status = "Error"
+          new_vm.errormsg = "Invalid Node"
         end
         new_vm.save
         

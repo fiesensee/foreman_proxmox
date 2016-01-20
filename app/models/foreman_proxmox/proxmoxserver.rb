@@ -8,8 +8,6 @@ module ForemanProxmox
     def setup_httpclient
       @client= HTTPClient.new
       @client.ssl_config.verify_mode= OpenSSL::SSL::VERIFY_NONE
-      @node = get_first_node_in_cluster
-      
       $LOG.error("Created HttpClient")
     end
     
@@ -30,9 +28,6 @@ module ForemanProxmox
     end
     
     def authenticate_client
-      if !check_ip_connectivity then
-        return nil
-      end
       $LOG.error("authenticating")
       domain= "https://#{self.ip}:8006/"
       url= URI.parse(domain)
@@ -62,7 +57,7 @@ module ForemanProxmox
       return nodes["data"][0]["node"]
     end
     
-    def find_node_for_vmid(vmid)
+    def find_node_for_vmid(vm)
       authenticate_client
       nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
@@ -75,8 +70,9 @@ module ForemanProxmox
         vms = JSON.parse(vms_response.body)
         current_vm = vms["data"][current_vm_id]
         while current_vm != nil do
-          if vms["data"][current_vm_id]["vmid"] == vmid
-            @node = node_name
+          if vms["data"][current_vm_id]["vmid"] == vm.vmid
+            vm.node = node_name
+            vm.save
           end
           current_vm_id+=1
           current_vm = vms["data"][current_vm_id]
@@ -136,52 +132,65 @@ module ForemanProxmox
       return highest_vmid+1
     end
     
+    def validateNode(node)
+      nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
+      nodes = JSON.parse(nodes_response.body)
+      i = 0
+      while node != null
+        if nodes[data][i][node] == vm.node
+          return true
+        end
+        i += 1
+      end
+      return false
+    end
+    
+    def clientpost(url, body)
+      authenticate_client
+      response = @client.post(url,body,@header)
+      $LOG.error(response.status)
+      $LOG.error("Body: #{response.body}")
+      $LOG.error("Header: #{response.header}")
+      return response
+    end
     
     #manage kvms
-    def create_ide(vmid, size)
+    def create_ide(vm)
       if !check_ip_connectivity then
         return nil
       end
-      authenticate_client
-      body= { :filename => "vm-#{vmid}-disk-0.raw", :format => "raw", :size => size, :vmid => vmid}
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/storage/#{self.storage}/content",body,@header)
-      $LOG.error(testres.status)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
-      if testres.status == 200
+      body= { :filename => "vm-#{vm.vmid}-disk-0.raw", :format => "raw", :size => vm.size, :vmid => vm.vmid}
+      response = clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/storage/#{self.storage}/content",body)
+      if response.status == 200
         return true
       else
         if error["errors"] == nil
-          return testres.header.reason_phrase
+          return response.header.reason_phrase
         else
           return error["errors"]
         end
       end
     end
     
-    def create_kvm(vmid, name, sockets, cores, memory, mac, host)
+    def create_kvm(vm,host)
       if !check_ip_connectivity then
         return nil
       end
-      authenticate_client
-      body = { :vmid => vmid, :name => name, :sockets => sockets, :cores => cores, :memory => memory, :net0 => "e1000=#{mac},bridge=#{self.bridge}"}
+      body = { :vmid => vm.vmid, :name => vm.name, :sockets => vm.sockets, :cores => vm.cores, :memory => vm.memory, :net0 => "e1000=#{vm.mac},bridge=#{self.bridge}"}
       if self.storagetype == 'lvm'
-        body = body.merge(:ide0 => "volume=#{self.storage}:vm-#{vmid}-disk-0.raw,media=disk")
+        body = body.merge(:ide0 => "volume=#{self.storage}:vm-#{vm.vmid}-disk-0.raw,media=disk")
       else
-        body = body.merge(:ide0 => "volume=#{self.storage}:#{vmid}/vm-#{vmid}-disk-0.raw,media=disk")
+        body = body.merge(:ide0 => "volume=#{self.storage}:#{vm.vmid}/vm-#{vm.vmid}-disk-0.raw,media=disk")
       end
       body = body.merge(get_vm_attributes(host))
       $LOG.error(body)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu",body,@header)
-      $LOG.error(testres.status)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
-      if testres.status == 200
+      response = clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu",body)
+      if response.status == 200
         return true
       else
-        error = JSON.parse(testres.body)
+        error = JSON.parse(response.body)
         if error["errors"] == nil
-          return testres.header.reason_phrase
+          return response.header.reason_phrase
         else
           return error["errors"]
         end
@@ -191,59 +200,43 @@ module ForemanProxmox
     def edit_kvm(vmid)
     end
     
-    def get_vm_status(vmid)
-      authenticate_client
-      status_response = @client.get("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/current")
+    def get_vm_status(vm)
+      status_response = clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu/#{vm.vmid}/status/current",{})
       status_body = JSON.parse(status_response.body)
       return status_body["data"]["status"]
     end
     
-    def delete_kvm(vmid)
+    def delete_kvm(vm)
       if !check_ip_connectivity then
         return nil
       end
       authenticate_client
-      find_node_for_vmid(vmid)
-      testres= @client.delete("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}",{},@header)
-      $LOG.error(testres.code)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
+      find_node_for_vmid(vm.vmid)
+      @client.delete("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu/#{vm.vmid}",{},@header)
     end
     
-    def start_kvm(vmid)
+    def start_kvm(vm)
       if !check_ip_connectivity then
         return nil
       end
-      authenticate_client
-      find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/start",{},@header)
-      $LOG.error(testres.code)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
+      find_node_for_vmid(vm.vmid)
+      clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu/#{vm.vmid}/status/start",{})
     end
     
-    def stop_kvm(vmid)
+    def stop_kvm(vm)
       if !check_ip_connectivity then
         return nil
       end
-      authenticate_client
-      find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/stop",{},@header)
-      $LOG.error(testres.code)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
+      find_node_for_vmid(vm.vmid)
+      clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu/#{vm.vmid}/status/stop",{})
     end
     
-    def reboot_kvm(vmid)
+    def reboot_kvm(vm)
       if !check_ip_connectivity then
         return nil
       end
-      authenticate_client
       find_node_for_vmid(vmid)
-      testres= @client.post("https://#{self.ip}:8006/api2/json/nodes/#{@node}/qemu/#{vmid}/status/reset",{},@header)
-      $LOG.error(testres.code)
-      $LOG.error("Body: #{testres.body}")
-      $LOG.error("Header: #{testres.header}")
+      clientpost("https://#{self.ip}:8006/api2/json/nodes/#{vm.node}/qemu/#{vm.vmid}/status/reset",{})
     end
     
   end
