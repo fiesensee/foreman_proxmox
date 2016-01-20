@@ -136,7 +136,8 @@ module ForemanProxmox
       nodes_response = @client.get("https://#{self.ip}:8006/api2/json/nodes")
       nodes = JSON.parse(nodes_response.body)
       i = 0
-      while node != null
+      node = nodes[data][i][node]
+      while node != nil
         if nodes[data][i][node] == vm.node
           return true
         end
